@@ -14,6 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css?v=1.0.2">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
     :root {
@@ -380,6 +381,10 @@
       box-shadow: var(--shadow-md);
       transition: var(--transition);
       height: 100%;
+      display: flex;
+      flex-direction: column;
+      min-height: 250px;
+      max-height: 300px;
     }
     
     .testimonial-card:hover {
@@ -392,12 +397,35 @@
       color: var(--text-secondary);
       margin-bottom: 1.5rem;
       font-style: italic;
+      overflow-y: auto;
+      flex-grow: 1;
+      padding-right: 0.5rem;
+    }
+    
+    .testimonial-quote::-webkit-scrollbar {
+      width: 4px;
+    }
+    
+    .testimonial-quote::-webkit-scrollbar-track {
+      background: #f5f5f5;
+      border-radius: 10px;
+    }
+    
+    .testimonial-quote::-webkit-scrollbar-thumb {
+      background: linear-gradient(to bottom, #e6d5b8, #d4c4a8, #c4b498);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .testimonial-quote::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(to bottom, #d4c4a8, #c4b498, #b4a488);
     }
     
     .testimonial-author {
       display: flex;
       align-items: center;
       gap: 1rem;
+      margin-top: auto;
     }
     
     .author-avatar {
@@ -433,9 +461,14 @@
       position: relative;
     }
     
+    .pricing-section {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
     .pricing-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr 2fr;
+      grid-template-columns: 1fr 1fr;
       gap: 2rem;
       margin-top: 4rem;
     }
@@ -450,6 +483,7 @@
       border: 1px solid var(--gray-light);
       display: flex;
       flex-direction: column;
+      min-height: 600px;
     }
     
     .pricing-card:hover {
@@ -457,13 +491,134 @@
       box-shadow: var(--shadow-lg);
     }
     
-    .pricing-card.popular {
-      border-color: var(--primary-light);
+    .pricing-card.silver {
+      background: linear-gradient(135deg, #ffffff, #f5f5f5);
+      border: none !important;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+      transform: translateY(-2px);
+    }
+
+    .pricing-card.silver::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        45deg,
+        #8E8E8E,
+        #D8D8D8,
+        #8E8E8E,
+        #FFFFFF,
+        #8E8E8E,
+        #D8D8D8,
+        #FFFFFF,
+        #8E8E8E
+      );
+      background-size: 200% 200%;
+      z-index: 0;
+      border-radius: var(--radius-lg);
+      animation: silverShine 4s linear infinite;
+      opacity: 0.9;
+    }
+
+    .pricing-card.silver > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes silverShine {
+      0% { background-position: 0% 0%; }
+      25% { background-position: 100% 0%; }
+      50% { background-position: 100% 100%; }
+      75% { background-position: 0% 100%; }
+      100% { background-position: 0% 0%; }
+    }
+
+    .silver-badge {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(135deg, #6E6E6E, #A0A0A0);
+      color: white;
+      padding: 0.5rem 1.5rem;
+      border-radius: var(--radius-md);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
       z-index: 2;
+      text-transform: uppercase;
+      animation: silverBadgePulse 2s infinite;
+    }
+
+    @keyframes silverBadgePulse {
+      0% { box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); }
+      50% { box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); }
+      100% { box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); }
+    }
+
+    .pricing-card.silver .pricing-header h3,
+    .pricing-card.silver .price-value {
+      background: linear-gradient(135deg, #4A4A4A, #7E7E7E, #4A4A4A);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-fill-color: transparent;
+      animation: silverTextShine 3s linear infinite;
+      filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.3));
+    }
+
+    @keyframes silverTextShine {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .pricing-card.silver .pricing-features li svg {
+      color: #6E6E6E;
+      animation: checkmarkPulse 2s ease-in-out infinite;
+    }
+
+    .btn-silver {
+      background: linear-gradient(135deg, #6E6E6E, #909090) !important;
+      color: white !important;
+      border: none !important;
+      padding: 0.75rem 2rem !important;
+      border-radius: var(--radius-md) !important;
+      font-weight: 600 !important;
+      transition: all 0.3s ease !important;
+      text-align: center !important;
+      display: inline-block !important;
+      text-decoration: none !important;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.5px !important;
+    }
+
+    .btn-silver:hover {
+      transform: translateY(-2px) !important;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3) !important;
+      background: linear-gradient(135deg, #5A5A5A, #808080) !important;
+    }
+
+    .pricing-card.silver .pricing-features {
+      position: relative;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+    }
+
+    .pricing-card.silver .pricing-features li {
+      color: #4a4a4a;
+      font-weight: 500;
     }
     
     .pricing-card.best-value {
-      @apply relative bg-gradient-to-b from-white to-amber-50 rounded-xl overflow-hidden shadow-lg transform transition-all duration-300 hover:translate-y-[-5px] hover:shadow-xl border-0;
+      z-index: 4;
     }
     
     .pricing-card.best-value::before {
@@ -477,30 +632,6 @@
       border-radius: var(--radius-lg);
       animation: goldShine 8s ease infinite, borderPulse 3s ease-in-out infinite;
       opacity: 0.7;
-    }
-    
-    @keyframes goldShine {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
-    }
-    
-    @keyframes borderPulse {
-      0% {
-        opacity: 0.5;
-      }
-      50% {
-        opacity: 0.7;
-      }
-      100% {
-        opacity: 0.5;
-      }
     }
     
     .pricing-card.best-value .pricing-header h3::before,
@@ -563,127 +694,11 @@
       @apply flex-shrink-0 h-5 w-5 text-amber-500;
     }
     
-    .pricing-card.best-value .pricing-btn {
-      @apply mx-6 mb-6 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-semibold py-3 px-6 rounded-lg shadow transition-all duration-300 hover:shadow-lg hover:translate-y-[-2px] border-0 text-center block;
-    }
-    
-    .plan-tab {
-      display: none;
-    }
-    
-    .best-value-badge::after {
-      display: none;
-    }
-    
-    .pricing-card.best-value .pricing-header p {
-      font-size: 0.95rem;
-      color: #333;
-      margin-bottom: 0;
-      font-weight: 500;
-    }
-    
-    .pricing-card.best-value .price-period {
-      font-size: 1rem;
-      color: #4CAF50;
-    }
-    
-    .pricing-card.best-value .pricing-features {
-      padding: 0 1.5rem 1.5rem;
-      margin-bottom: 0;
-    }
-    
-    .pricing-card.best-value .pricing-btn {
-      margin: 0 1.5rem 1.5rem;
-      background: #e67e22;
-      color: white;
-      font-weight: 600;
-      box-shadow: 0 4px 6px rgba(230, 126, 34, 0.2);
-      border: none;
-      border-radius: var(--radius-md);
-      padding: 0.75rem;
-      font-size: 1rem;
-      width: calc(100% - 3rem);
-      text-transform: none;
-      display: block;
-      text-align: center;
-    }
-    
-    .pricing-header {
-      text-align: center;
-      padding-bottom: 2rem;
-      margin-bottom: 2rem;
-      border-bottom: 1px solid var(--gray-light);
-    }
-    
-    .pricing-header h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-    
-    .price {
-      margin-bottom: 1rem;
-    }
-    
-    .price-value {
-      font-size: 3rem;
-      font-weight: 700;
-      color: var(--primary);
-    }
-    
-    .price-period {
-      font-size: 1rem;
+    .pricing-card.best-value .pricing-features li.feature-disabled {
       color: var(--text-light);
     }
     
-    .pricing-header p {
-      font-size: 0.95rem;
-      color: var(--text-secondary);
-      margin-bottom: 0;
-    }
-    
-    .pricing-card.best-value .pricing-header p {
-      font-size: 1.1rem;
-      font-weight: 500;
-    }
-    
-    .pricing-features {
-      list-style-type: none;
-      margin-bottom: 2rem;
-      flex-grow: 1;
-    }
-    
-    .pricing-card.best-value .pricing-features {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-    
-    .pricing-features li {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 1rem;
-      font-size: 1rem;
-    }
-    
-    .pricing-card.best-value .pricing-features li {
-      font-weight: 500;
-    }
-    
-    .pricing-features li svg {
-      color: var(--primary);
-      flex-shrink: 0;
-    }
-    
-    .pricing-card.best-value .pricing-features li svg {
-      color: #daa520;
-    }
-    
-    .pricing-features li.feature-disabled {
-      color: var(--text-light);
-    }
-    
-    .pricing-features li.feature-disabled svg {
+    .pricing-card.best-value .pricing-features li.feature-disabled svg {
       color: var(--text-light);
     }
     
@@ -693,17 +708,13 @@
       margin-top: auto;
     }
     
-    @media (max-width: 992px) {
+    @media (max-width: 1200px) {
       .pricing-grid {
         grid-template-columns: 1fr 1fr;
       }
       
       .pricing-card.best-value {
         grid-column: span 2;
-      }
-      
-      .pricing-card.best-value .pricing-features {
-        grid-template-columns: 1fr 1fr;
       }
     }
     
@@ -715,10 +726,6 @@
       
       .pricing-card.best-value {
         grid-column: span 1;
-      }
-      
-      .pricing-card.best-value .pricing-features {
-        grid-template-columns: 1fr;
       }
     }
     
@@ -1062,12 +1069,12 @@
         </div>
         <div class="testimonial-grid">
           <div class="testimonial-card fade-in-up">
-            <p class="testimonial-quote">"I bombed on stage for 2 years. Comedi helped me kill it in 3 months. The personalized feedback on delivery and timing was a complete game-changer."</p>
+            <p class="testimonial-quote">"I used to freeze up at open mics, sweating bullets and forgetting my punchlines. Comedi.ai gave me killer material and helped me nail my timing—now I've got the crowd laughing every time! It's like having a comedy coach in my pocket."</p>
             <div class="testimonial-author">
-              <div class="author-avatar">J</div>
+              <div class="author-avatar">S</div>
               <div class="author-info">
-                <cite>Jay D.</cite>
-                <p>Open Mic Comedian</p>
+                <cite>Sam T.</cite>
+                <p>Aspiring Comedian</p>
               </div>
             </div>
           </div>
@@ -1091,6 +1098,16 @@
               </div>
             </div>
           </div>
+          <div class="testimonial-card fade-in-up delay-3">
+            <p class="testimonial-quote">"As a business executive, I used to dread presentations. Comedi.ai helped me inject the perfect amount of humor into my talks. Now my team actually looks forward to my meetings!"</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">S</div>
+              <div class="author-info">
+                <cite>Sarah K.</cite>
+                <p>Business Executive</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1102,158 +1119,103 @@
           <h2>Choose Your Comedy Journey</h2>
           <p>Select the plan that suits your humor needs, from casual jokesters to professional comedians.</p>
         </div>
-        <div class="pricing-grid">
-          <div class="pricing-card fade-in-up">
-            <div class="pricing-header">
-              <h3>Free</h3>
-              <div class="price">
-                <span class="price-value">$0</span>
-                <span class="price-period">/month</span>
+        <div class="pricing-section">
+          <div class="pricing-grid">
+            <!-- Silver tier -->
+            <div class="pricing-card silver fade-in-up delay-1">
+              <div class="silver-badge">SILVER TIER</div>
+              <div class="pricing-header">
+                <h2 class="price-value">$16.49<span class="price-period">/month</span></h2>
+                <p>For aspiring comedians ready to level up their game</p>
               </div>
-              <p>Perfect for beginners exploring the world of comedy</p>
+              <ul class="pricing-features">
+                <li>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  Everything in Free plan
+                </li>
+                <li>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  Advanced joke suggestions
+                </li>
+                <li>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  Multiple comedy styles
+                </li>
+                <li>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  Basic joke analysis
+                </li>
+                <li>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  Premium support
+                </li>
+              </ul>
+              <a href="#signup" class="btn btn-silver pricing-btn">Go Silver</a>
             </div>
-            <ul class="pricing-features">
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                Basic joke suggestions
-              </li>
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                3 comedy styles
-              </li>
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                5 joke analyses per month
-              </li>
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                Family-friendly content only
-              </li>
-              <li class="feature-disabled">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-                No adult content
-              </li>
-            </ul>
-            <a href="#signup" class="btn btn-secondary pricing-btn">Get Started</a>
-          </div>
 
-          <div class="pricing-card popular fade-in-up delay-1">
-            <div class="popular-badge">MOST POPULAR</div>
-            <div class="pricing-header">
-              <h3>Pro</h3>
-              <div class="price">
-                <span class="price-value">$19.99</span>
-                <span class="price-period">/month</span>
+            <!-- Annual Pro tier -->
+            <div class="pricing-card silver annual-pro fade-in-up delay-2">
+              <div class="silver-badge">BEST VALUE</div>
+              <div class="pricing-header">
+                <h2 class="price-value">$99.49<span class="price-period">/year</span></h2>
+                <p>Save $140 with our annual plan - that's over 58% off!</p>
               </div>
-              <p>For comedians ready to push boundaries and explore edgier humor</p>
+              <ul class="pricing-features">
+                <li>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  Everything in Pro plan
+                </li>
+                <li>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  $240 yearly value for only $99.49
+                </li>
+                <li>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  Deal of a lifetime
+                </li>
+                <li>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  Early access to new features
+                </li>
+                <li>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  Pay once, save big
+                </li>
+                <li>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  Priority feature access
+                </li>
+                <li>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  VIP customer support
+                </li>
+              </ul>
+              <a href="#signup" class="btn btn-silver pricing-btn">Get Annual Pro</a>
             </div>
-            <ul class="pricing-features">
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                Advanced joke suggestions
-              </li>
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                Unlimited comedy styles
-              </li>
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                Unlimited joke analyses
-              </li>
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                Curated profanity-included content
-              </li>
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                X-rated joke material
-              </li>
-            </ul>
-            <a href="#signup" class="btn btn-primary pricing-btn">Go Pro</a>
-          </div>
-
-          <div class="pricing-card best-value fade-in-up delay-2">
-            <div class="best-value-badge">BEST VALUE</div>
-            <div class="pricing-header">
-              <h3>Annual Pro</h3>
-              <div class="price">
-                <span class="price-value">$99.49</span>
-                <span class="price-period">/year</span>
-              </div>
-              <p>Save $140 with our annual plan - that's over 58% off!</p>
-            </div>
-            <ul class="pricing-features">
-              <li>
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                </svg>
-                <span>Everything in Pro plan</span>
-              </li>
-              <li>
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                </svg>
-                <span>Pay once, save big</span>
-              </li>
-              <li>
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                </svg>
-                <span>$240 yearly value for only $99.49</span>
-              </li>
-              <li>
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                </svg>
-                <span>Priority feature access</span>
-              </li>
-              <li>
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                </svg>
-                <span>Deal of a lifetime</span>
-              </li>
-              <li>
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                </svg>
-                <span>Premium joke library access</span>
-              </li>
-              <li>
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                </svg>
-                <span>Early access to new features</span>
-              </li>
-              <li>
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                </svg>
-                <span>VIP customer support</span>
-              </li>
-            </ul>
-            <a href="#signup" class="pricing-btn">Get Annual Pro</a>
           </div>
         </div>
       </div>
@@ -1355,6 +1317,46 @@
         navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
       });
     }
+
+    // Gold shimmer for Annual Pro button and checkmarks
+    document.addEventListener('DOMContentLoaded', function() {
+      // Apply gold animation to the Annual Pro button
+      const annualProBtn = document.querySelector('.pricing-card.best-value .pricing-btn');
+      if (annualProBtn) {
+        annualProBtn.style.background = 'linear-gradient(90deg, #c09b3e, #e6c15a, #d4af37, #f1c40f)';
+        annualProBtn.style.backgroundSize = '300% 100%';
+        annualProBtn.style.color = '#5d4037';
+        annualProBtn.style.animation = 'goldButtonShine 5s ease infinite';
+        annualProBtn.style.textShadow = '0 1px 1px rgba(255, 255, 255, 0.4)';
+        
+        // Add animation keyframes if they don't exist
+        if (!document.querySelector('#gold-animations')) {
+          const styleSheet = document.createElement('style');
+          styleSheet.id = 'gold-animations';
+          styleSheet.textContent = `
+            @keyframes goldButtonShine {
+              0% { background-position: 0% 50%; }
+              50% { background-position: 100% 50%; }
+              100% { background-position: 0% 50%; }
+            }
+            
+            @keyframes checkmarkPulse {
+              0% { opacity: 0.8; transform: scale(1); }
+              50% { opacity: 1; transform: scale(1.1); }
+              100% { opacity: 0.8; transform: scale(1); }
+            }
+          `;
+          document.head.appendChild(styleSheet);
+        }
+      }
+      
+      // Apply gold animation to checkmarks
+      const checkmarks = document.querySelectorAll('.pricing-card.best-value .pricing-features li svg');
+      checkmarks.forEach(checkmark => {
+        checkmark.style.stroke = '#d4af37';
+        checkmark.style.animation = 'checkmarkPulse 2s ease-in-out infinite';
+      });
+    });
 
     // Interactive gradient for hero section
     document.addEventListener('DOMContentLoaded', function() {

@@ -5,6 +5,9 @@
  * Version: 1.0.0
  */
 
+/* Add Raleway font import at the top */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@900&display=swap');
+
 /* ==========================================================================
    Base Styles and Variables
    ========================================================================== */
@@ -138,51 +141,109 @@ p {
    Header & Navigation
    ========================================================================== */
 
+@keyframes rainbowShimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes shimmerGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 .site-header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  padding: 1rem 0;
-  transition: var(--transition);
+  padding: 1.2rem 0;
+  border-bottom: 1px solid rgba(233, 30, 99, 0.1);
 }
 
 .site-header.scrolled {
-  box-shadow: var(--shadow-md);
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+}
+
+.logo {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 900;
+  font-size: 1.8rem;
+  background: linear-gradient(
+    90deg,
+    #ff0000,
+    #ffa500,
+    #ffff00,
+    #008000,
+    #0000ff,
+    #4b0082,
+    #ee82ee,
+    #ff0000
+  );
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: rainbowShimmer 6s linear infinite;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.5px;
+  position: relative;
+}
+
+.logo::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    #ff0000,
+    #ffa500,
+    #ffff00,
+    #008000,
+    #0000ff,
+    #4b0082,
+    #ee82ee,
+    #ff0000
+  );
+  background-size: 200% auto;
+  animation: rainbowShimmer 6s linear infinite;
+  opacity: 0.5;
+  border-radius: 2px;
 }
 
 .main-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.logo {
-  font-weight: 800;
-  font-size: 1.5rem;
-  color: var(--primary);
-  text-decoration: none;
-  display: flex;
-  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
 .nav-links {
   display: flex;
-  gap: 2.5rem;
+  gap: 3rem;
   align-items: center;
 }
 
 .nav-item {
   text-decoration: none;
   color: var(--text-secondary);
-  font-weight: 500;
-  font-size: 0.95rem;
-  transition: var(--transition);
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
   position: relative;
 }
 
@@ -615,6 +676,44 @@ p {
   animation-delay: 0.4s;
 }
 
+@keyframes bronzeShine {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes bronzeBadgeShine {
+  0% { transform: translateY(-50%) scale(1); box-shadow: 0 4px 8px rgba(184, 115, 51, 0.3); }
+  50% { transform: translateY(-50%) scale(1.05); box-shadow: 0 6px 12px rgba(184, 115, 51, 0.5); }
+  100% { transform: translateY(-50%) scale(1); box-shadow: 0 4px 8px rgba(184, 115, 51, 0.3); }
+}
+
+@keyframes bounceButton {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes arrowBounce {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(5px); }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-3deg); }
+  75% { transform: rotate(3deg); }
+}
+
+@keyframes sparkle {
+  0%, 100% { 
+    background-position: 0% 50%;
+    box-shadow: 0 4px 12px rgba(233, 30, 99, 0.3);
+  }
+  50% { 
+    background-position: 100% 50%;
+    box-shadow: 0 4px 20px rgba(233, 30, 99, 0.5);
+  }
+}
+
 /* ==========================================================================
    Responsive Styles
    ========================================================================== */
@@ -727,4 +826,425 @@ p {
   :root {
     /* Dark mode styles can be applied here in the future */
   }
-} 
+}
+
+/* ==========================================================================
+   Pricing Section
+   ========================================================================== */
+
+.pricing {
+  padding: 6rem 0;
+  background-color: #f8f9fa;
+}
+
+.pricing .container {
+  max-width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 2rem !important;
+  width: 100% !important;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-header .overline {
+  color: #e6c15a;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.section-header h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #2d3748;
+}
+
+.section-header p {
+  color: #718096;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.pricing-section {
+  max-width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 2rem !important;
+  width: 100% !important;
+}
+
+.pricing-grid {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 3rem !important;
+  margin: 0 auto !important;
+  max-width: 1400px !important;
+  width: 100% !important;
+  padding: 0 2rem !important;
+}
+
+.pricing-card {
+  background: white;
+  border-radius: 24px;
+  padding: 5rem !important;
+  position: relative;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  width: 100% !important;
+}
+
+.pricing-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.pricing-header h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333333;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.pricing-header h2 {
+  font-size: 2.75rem;
+  color: #333333;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.price-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333333;
+}
+
+.price-period {
+  color: #555555;
+  font-size: 1.25rem;
+  margin-left: 4px;
+}
+
+.pricing-features {
+  list-style: none;
+  padding: 0 4rem;
+  margin: 3rem 0;
+  text-align: left;
+}
+
+.pricing-features li {
+  color: #333333;
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.pricing-btn {
+  width: 100%;
+  padding: 1.25rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1.25rem;
+  background: #333333;
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 2rem;
+}
+
+/* Silver tier styling */
+.pricing-card.silver,
+.pricing-card.silver.annual-pro {
+  background: linear-gradient(135deg, #ffffff, #f5f5f5);
+  border: none !important;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+  transform: translateY(-2px);
+}
+
+.pricing-card.silver::before,
+.pricing-card.silver.annual-pro::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    45deg,
+    #8E8E8E,
+    #D8D8D8,
+    #8E8E8E,
+    #FFFFFF,
+    #8E8E8E,
+    #D8D8D8,
+    #FFFFFF,
+    #8E8E8E
+  );
+  background-size: 200% 200%;
+  z-index: 0;
+  border-radius: var(--radius-lg);
+  animation: silverShine 4s linear infinite;
+  opacity: 0.9;
+}
+
+.pricing-card.silver > *,
+.pricing-card.silver.annual-pro > * {
+  position: relative;
+  z-index: 1;
+}
+
+.pricing-card.silver.annual-pro {
+  background: linear-gradient(135deg, #FFD700, #FDB931) !important;
+  border: none !important;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2) !important;
+  transform: translateY(-2px);
+  width: 100% !important;
+  max-width: 800px !important;
+  margin: 0 auto !important;
+}
+
+.pricing-card.silver.annual-pro::before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  background: white;
+  border-radius: 22px;
+  z-index: 1;
+}
+
+.pricing-card.silver.annual-pro > * {
+  position: relative;
+  z-index: 2;
+}
+
+.pricing-card.silver.annual-pro .pricing-features {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  margin: 2rem auto;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.1);
+  max-width: 600px;
+}
+
+.pricing-card.silver.annual-pro .pricing-header h2,
+.pricing-card.silver.annual-pro .price-value {
+  background: linear-gradient(135deg, #B8860B, #FFD700);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+  filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.3));
+}
+
+.pricing-card.silver.annual-pro .btn-silver {
+  background: linear-gradient(135deg, #B8860B, #FFD700) !important;
+  color: #ffffff !important;
+  font-weight: 900 !important;
+  font-size: 1.4rem !important;
+  text-shadow: none !important;
+  box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3) !important;
+  max-width: 300px !important;
+  margin: 2rem auto !important;
+  display: block !important;
+  letter-spacing: 0.5px !important;
+  padding: 1rem 2rem !important;
+}
+
+.pricing-card.silver.annual-pro .btn-silver:hover {
+  background: linear-gradient(135deg, #986A09, #FFD700) !important;
+  box-shadow: 0 6px 12px rgba(212, 175, 55, 0.4) !important;
+  transform: translateY(-2px) !important;
+}
+
+.pricing-card.silver.annual-pro .pricing-features li {
+  color: #8B6914;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 0;
+}
+
+.pricing-card.silver.annual-pro .silver-badge {
+  background: linear-gradient(135deg, #B8860B, #FFD700);
+  color: #000;
+  text-shadow: 0 2px 2px rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.4);
+  animation: goldBadgePulse 2s infinite;
+  padding: 0.85rem 3rem;
+  border-radius: 999px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  transform: translate(-50%, 20%);
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  backdrop-filter: blur(5px);
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 3;
+  overflow: hidden;
+  background-clip: padding-box;
+  -webkit-background-clip: padding-box;
+}
+
+@keyframes goldBadgePulse {
+  0% { 
+    transform: translate(-50%, 20%) scale(1); 
+    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.4);
+  }
+  50% { 
+    transform: translate(-50%, 20%) scale(1.05); 
+    box-shadow: 0 12px 28px rgba(212, 175, 55, 0.6);
+  }
+  100% { 
+    transform: translate(-50%, 20%) scale(1); 
+    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.4);
+  }
+}
+
+.pricing-card.silver .pricing-header h3,
+.pricing-card.silver .price-value {
+  background: linear-gradient(135deg, #4A4A4A, #7E7E7E, #4A4A4A);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+  animation: silverTextShine 3s linear infinite;
+  filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.3));
+}
+
+@keyframes silverTextShine {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.pricing-card.silver .pricing-features li svg {
+  color: #6E6E6E;
+  animation: checkmarkPulse 2s ease-in-out infinite;
+}
+
+.btn-silver {
+  background: linear-gradient(135deg, #6E6E6E, #909090) !important;
+  color: white !important;
+  border: none !important;
+  padding: 0.75rem 2rem !important;
+  border-radius: var(--radius-md) !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  text-align: center !important;
+  display: inline-block !important;
+  text-decoration: none !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+.btn-silver:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3) !important;
+  background: linear-gradient(135deg, #5A5A5A, #808080) !important;
+}
+
+.pricing-card.silver .pricing-features {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+}
+
+.pricing-card.silver .pricing-features li {
+  color: #4a4a4a;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.pricing-card.silver.annual-pro .silver-badge {
+  background: linear-gradient(135deg, #B8860B, #FFD700);
+  color: #000;
+  text-shadow: 0 2px 2px rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.4);
+  animation: goldBadgePulse 2s infinite;
+  padding: 0.85rem 3rem;
+  border-radius: 999px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  transform: translate(-50%, 20%);
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  backdrop-filter: blur(5px);
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 3;
+  overflow: hidden;
+  background-clip: padding-box;
+  -webkit-background-clip: padding-box;
+}
+
+@keyframes goldBadgePulse {
+  0% { 
+    transform: translate(-50%, 20%) scale(1); 
+    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.4);
+  }
+  50% { 
+    transform: translate(-50%, 20%) scale(1.05); 
+    box-shadow: 0 12px 28px rgba(212, 175, 55, 0.6);
+  }
+  100% { 
+    transform: translate(-50%, 20%) scale(1); 
+    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.4);
+  }
+}
+
+@keyframes goldShine {
+  0% { background-position: 0% 0%; }
+  25% { background-position: 100% 0%; }
+  50% { background-position: 100% 100%; }
+  75% { background-position: 0% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+.nav-links .btn-primary {
+  background: var(--primary) !important;
+  color: var(--white) !important;
+  font-weight: 800 !important;
+  font-size: 1.2rem !important;
+  padding: 0.75rem 2rem !important;
+  box-shadow: 0 4px 12px rgba(233, 30, 99, 0.3) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  transition: none !important;
+  transform: none !important;
+  animation: none !important;
+  border: none !important;
+  position: static !important;
+  overflow: visible !important;
+}
+
+.nav-links .btn-primary:hover {
+  background: var(--primary-dark) !important;
+  transform: none !important;
+  box-shadow: 0 4px 12px rgba(233, 30, 99, 0.3) !important;
+  animation: none !important;
+}
+
+.nav-links .btn-primary:active {
+  transform: none !important;
+}
+
+/* Remove any existing animations */
+.nav-links .btn-primary::before,
+.nav-links .btn-primary::after {
+  display: none !important;
+  content: none !important;
+}
