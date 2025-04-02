@@ -3,6 +3,47 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Interactive gradient background for hero section
+  const heroSection = document.querySelector('.hero');
+  if (heroSection) {
+    // Create gradient elements for interactive effect
+    const heroShape1 = document.querySelector('.hero-shape-1');
+    const heroShape2 = document.querySelector('.hero-shape-2');
+    
+    // Add mouse move event listener to hero section
+    heroSection.addEventListener('mousemove', (e) => {
+      // Calculate mouse position relative to the section
+      const rect = heroSection.getBoundingClientRect();
+      const x = e.clientX - rect.left; // x position within the element
+      const y = e.clientY - rect.top;  // y position within the element
+      
+      // Calculate percentage position for smooth transitions
+      const xPercent = Math.floor((x / rect.width) * 100);
+      const yPercent = Math.floor((y / rect.height) * 100);
+      
+      // Update gradient position based on mouse movement
+      if (heroShape1) {
+        heroShape1.style.transform = `translate(${xPercent / 30 - 10}px, ${yPercent / 30 - 10}px)`;
+        heroShape1.style.opacity = 0.1 + (xPercent / 1000);
+      }
+      
+      if (heroShape2) {
+        heroShape2.style.transform = `translate(${-xPercent / 25 + 10}px, ${-yPercent / 25 + 10}px)`;
+        heroShape2.style.opacity = 0.1 + (yPercent / 1000);
+      }
+      
+      // Update the background gradient
+      heroSection.style.backgroundImage = `linear-gradient(${135 + xPercent / 20}deg, var(--white) 0%, var(--primary-ultra-light) ${80 + yPercent / 5}%)`;
+    });
+    
+    // Reset when mouse leaves
+    heroSection.addEventListener('mouseleave', () => {
+      if (heroShape1) heroShape1.style.transform = 'translate(0, 0)';
+      if (heroShape2) heroShape2.style.transform = 'translate(0, 0)';
+      heroSection.style.backgroundImage = 'linear-gradient(135deg, var(--white) 0%, var(--primary-ultra-light) 100%)';
+    });
+  }
+
   // Mobile menu functionality
   const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
   const navLinks = document.getElementById('nav-links');
