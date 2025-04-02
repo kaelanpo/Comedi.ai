@@ -3,6 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Unlock your comedic potential with Comedi.ai - The AI-powered comedy coach for stand-up, speaking, and everyday humor.">
+  <meta name="theme-color" content="#e91e63">
+  <meta property="og:title" content="Comedi.ai - AI-Powered Comedy Coach">
+  <meta property="og:description" content="Master humor, boost confidence, and spread laughter with personalized AI coaching.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://comedi.ai">
+  <meta property="og:image" content="https://comedi.ai/images/og-image.jpg">
   <title>Comedi.ai - AI-Powered Comedy Coach</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -398,9 +405,12 @@
       color: var(--text-light);
     }
     
-    .author-info h4 {
+    .author-info cite {
       font-size: 1rem;
       margin-bottom: 0.2rem;
+      font-weight: 600;
+      font-style: normal;
+      display: block;
     }
     
     .author-info p {
@@ -562,9 +572,38 @@
         font-size: 1.8rem;
       }
     }
+
+    /* Accessibility */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--primary);
+      color: white;
+      padding: 8px;
+      z-index: 1001;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  
   <header id="header">
     <div class="container">
       <nav>
@@ -587,128 +626,130 @@
     </div>
   </header>
   
-  <section class="hero">
-    <div class="hero-shape-1"></div>
-    <div class="hero-shape-2"></div>
-    <div class="container">
-      <div class="hero-content">
-        <span class="overline fade-in-up">LAUGH LOUDER, LIVE BRIGHTER</span>
-        <h1 class="fade-in-up delay-1">Unleash Your Inner Comedian</h1>
-        <p class="fade-in-up delay-2">Discover the art of humor with comedi.ai, your AI-powered comedy coach. Whether you're cracking jokes or delivering punchlines, we'll help you master the craft.</p>
-        <div class="hero-buttons fade-in-up delay-3">
-          <a href="#try-free" class="btn btn-primary">Try It Free</a>
-          <a href="#how-it-works" class="btn btn-secondary btn-with-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"></circle>
-              <polygon points="10 8 16 12 10 16 10 8"></polygon>
-            </svg>
-            Watch How It Works
-          </a>
-        </div>
-        <div class="hero-image fade-in-up delay-4">
-          <p>Video Demo Placeholder</p>
+  <main id="main-content">
+    <section class="hero">
+      <div class="hero-shape-1"></div>
+      <div class="hero-shape-2"></div>
+      <div class="container">
+        <div class="hero-content">
+          <span class="overline fade-in-up">LAUGH LOUDER, LIVE BRIGHTER</span>
+          <h1 class="fade-in-up delay-1">Unleash Your Inner Comedian</h1>
+          <p class="fade-in-up delay-2">Discover the art of humor with comedi.ai, your AI-powered comedy coach. Whether you're cracking jokes or delivering punchlines, we'll help you master the craft.</p>
+          <div class="hero-buttons fade-in-up delay-3">
+            <a href="#try-free" class="btn btn-primary">Try It Free</a>
+            <a href="#how-it-works" class="btn btn-secondary btn-with-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="10 8 16 12 10 16 10 8"></polygon>
+              </svg>
+              Watch How It Works
+            </a>
+          </div>
+          <div class="hero-image fade-in-up delay-4">
+            <p>Video Demo Placeholder</p>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="features" class="features">
-    <div class="container">
-      <div class="section-header">
-        <span class="overline">THE TOOLS YOU NEED</span>
-        <h2>Elevate Your Comedy Game</h2>
-        <p>Our AI-powered tools help you craft, refine, and deliver humor that connects with any audience.</p>
+    <section id="features" class="features">
+      <div class="container">
+        <div class="section-header">
+          <span class="overline">THE TOOLS YOU NEED</span>
+          <h2>Elevate Your Comedy Game</h2>
+          <p>Our AI-powered tools help you craft, refine, and deliver humor that connects with any audience.</p>
+        </div>
+        <div class="feature-grid">
+          <div class="feature-card fade-in-up">
+            <div class="feature-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10a9.98 9.98 0 0 1-6.19-2.13l-3.5 1.399a1 1 0 0 1-1.31-1.311l1.4-3.5A9.98 9.98 0 0 1 2 12C2 6.477 6.477 2 12 2ZM8 14s2 1 4 1 4-1 4-1" />
+                <circle cx="8" cy="10" r="1" />
+                <circle cx="16" cy="10" r="1" />
+              </svg>
+            </div>
+            <h3>AI-POWERED INSIGHTS</h3>
+            <p>Our AI studies your unique comedic voice and offers personalized suggestions to enhance your natural style.</p>
+          </div>
+          <div class="feature-card fade-in-up delay-1">
+            <div class="feature-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                <path d="M12 19v3" />
+                <path d="M8 22h8" />
+              </svg>
+            </div>
+            <h3>CONFIDENCE BOOST</h3>
+            <p>Gain the tools and techniques needed to deliver your jokes with perfect timing and maximum audience impact.</p>
+          </div>
+          <div class="feature-card fade-in-up delay-2">
+            <div class="feature-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8l-6 6-6-6" />
+                <path d="M18 16l-6-6-6 6" />
+              </svg>
+            </div>
+            <h3>CREATIVE HUMOR</h3>
+            <p>Generate fresh, original material that fits your style and resonates with your audience, making every performance memorable.</p>
+          </div>
+        </div>
       </div>
-      <div class="feature-grid">
-        <div class="feature-card fade-in-up">
-          <div class="feature-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10a9.98 9.98 0 0 1-6.19-2.13l-3.5 1.399a1 1 0 0 1-1.31-1.311l1.4-3.5A9.98 9.98 0 0 1 2 12C2 6.477 6.477 2 12 2ZM8 14s2 1 4 1 4-1 4-1" />
-              <circle cx="8" cy="10" r="1" />
-              <circle cx="16" cy="10" r="1" />
-            </svg>
-          </div>
-          <h3>AI-POWERED INSIGHTS</h3>
-          <p>Our AI studies your unique comedic voice and offers personalized suggestions to enhance your natural style.</p>
-        </div>
-        <div class="feature-card fade-in-up delay-1">
-          <div class="feature-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
-              <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-              <path d="M12 19v3" />
-              <path d="M8 22h8" />
-            </svg>
-          </div>
-          <h3>CONFIDENCE BOOST</h3>
-          <p>Gain the tools and techniques needed to deliver your jokes with perfect timing and maximum audience impact.</p>
-        </div>
-        <div class="feature-card fade-in-up delay-2">
-          <div class="feature-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M18 8l-6 6-6-6" />
-              <path d="M18 16l-6-6-6 6" />
-            </svg>
-          </div>
-          <h3>CREATIVE HUMOR</h3>
-          <p>Generate fresh, original material that fits your style and resonates with your audience, making every performance memorable.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="testimonials" class="testimonials">
-    <div class="container">
-      <div class="section-header">
-        <span class="overline">REAL PEOPLE, REAL RESULTS</span>
-        <h2>What Our Users Say</h2>
-        <p>Hear from comedians, public speakers, and everyday people who've transformed their humor with Comedi.ai</p>
-      </div>
-      <div class="testimonial-grid">
-        <div class="testimonial-card fade-in-up">
-          <p class="testimonial-quote">"I bombed on stage for 2 years. Comedi helped me kill it in 3 months. The personalized feedback on delivery and timing was a complete game-changer."</p>
-          <div class="testimonial-author">
-            <div class="author-avatar">J</div>
-            <div class="author-info">
-              <h4>Jay D.</h4>
-              <p>Open Mic Comedian</p>
+    <section id="testimonials" class="testimonials">
+      <div class="container">
+        <div class="section-header">
+          <span class="overline">REAL PEOPLE, REAL RESULTS</span>
+          <h2>What Our Users Say</h2>
+          <p>Hear from comedians, public speakers, and everyday people who've transformed their humor with Comedi.ai</p>
+        </div>
+        <div class="testimonial-grid">
+          <div class="testimonial-card fade-in-up">
+            <p class="testimonial-quote">"I bombed on stage for 2 years. Comedi helped me kill it in 3 months. The personalized feedback on delivery and timing was a complete game-changer."</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">J</div>
+              <div class="author-info">
+                <cite>Jay D.</cite>
+                <p>Open Mic Comedian</p>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card fade-in-up delay-1">
+            <p class="testimonial-quote">"I use it before every keynote. It makes me sound confident, clever, and relatable. My engagement scores have gone up 40% since I started using Comedi."</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">A</div>
+              <div class="author-info">
+                <cite>Alana B.</cite>
+                <p>Public Speaker</p>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card fade-in-up delay-2">
+            <p class="testimonial-quote">"My social media content was flat until I tried Comedi.ai. Now my engagement is through the roof, and brands are reaching out for partnerships."</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">M</div>
+              <div class="author-info">
+                <cite>Marcos R.</cite>
+                <p>Content Creator</p>
+              </div>
             </div>
           </div>
         </div>
-        <div class="testimonial-card fade-in-up delay-1">
-          <p class="testimonial-quote">"I use it before every keynote. It makes me sound confident, clever, and relatable. My engagement scores have gone up 40% since I started using Comedi."</p>
-          <div class="testimonial-author">
-            <div class="author-avatar">A</div>
-            <div class="author-info">
-              <h4>Alana B.</h4>
-              <p>Public Speaker</p>
-            </div>
-          </div>
-        </div>
-        <div class="testimonial-card fade-in-up delay-2">
-          <p class="testimonial-quote">"My social media content was flat until I tried Comedi.ai. Now my engagement is through the roof, and brands are reaching out for partnerships."</p>
-          <div class="testimonial-author">
-            <div class="author-avatar">M</div>
-            <div class="author-info">
-              <h4>Marcos R.</h4>
-              <p>Content Creator</p>
-            </div>
-          </div>
-        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="try-free" class="cta">
-    <div class="container">
-      <div class="cta-container fade-in-up">
-        <span class="overline">GET STARTED TODAY</span>
-        <h2>Ready to get funnier?</h2>
-        <p>Join thousands of comedians, speakers, and everyday people who are upgrading their humor with AI.</p>
-        <a href="#signup" class="btn btn-primary">Start Your Free Trial</a>
+    <section id="try-free" class="cta">
+      <div class="container">
+        <div class="cta-container fade-in-up">
+          <span class="overline">GET STARTED TODAY</span>
+          <h2>Ready to get funnier?</h2>
+          <p>Join thousands of comedians, speakers, and everyday people who are upgrading their humor with AI.</p>
+          <a href="#signup" class="btn btn-primary">Start Your Free Trial</a>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
   <footer>
     <div class="container">
@@ -746,7 +787,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2023 Comedi AI. All rights reserved.</p>
+        <p>&copy; <span id="current-year">2023</span> Comedi AI. All rights reserved.</p>
       </div>
     </div>
   </footer>
@@ -791,6 +832,9 @@
         navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
       });
     }
+    
+    // Update current year
+    document.getElementById('current-year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html> 

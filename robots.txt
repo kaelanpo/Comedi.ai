@@ -1,0 +1,6 @@
+# comedi.ai robots.txt
+User-agent: *
+Allow: /
+
+# Site maps
+Sitemap: https://comedi.ai/sitemap.xml 

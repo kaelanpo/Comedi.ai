@@ -1,27 +1,32 @@
 {
-  "name": "comedi",
-  "version": "0.1.0",
+  "name": "comedi-ai",
+  "version": "1.0.0",
+  "description": "AI-powered comedy coach to help master the art of humor",
   "private": true,
+  "main": "server.js",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "next": "13.4.19",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "build": "mkdir -p dist && cp -R index.html 404.html css js icons robots.txt site.webmanifest dist/",
+    "lint": "eslint ."
   },
   "devDependencies": {
-    "@types/node": "20.5.9",
-    "@types/react": "18.2.21",
-    "@types/react-dom": "18.2.7",
-    "autoprefixer": "10.4.15",
-    "eslint": "8.48.0",
-    "eslint-config-next": "13.4.19",
-    "postcss": "8.4.29",
-    "tailwindcss": "3.3.3",
-    "typescript": "5.2.2"
-  }
-} 
+    "eslint": "^8.48.0",
+    "nodemon": "^3.1.9"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kaelanpo/Comedi.ai.git"
+  },
+  "keywords": [
+    "comedy",
+    "ai",
+    "coaching",
+    "humor"
+  ],
+  "author": "Comedi.ai Team",
+  "license": "MIT"
+}
