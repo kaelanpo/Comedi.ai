@@ -203,15 +203,15 @@
 </head>
 <body>
   <div class="logo">
-    <a href="/">
+    <a href="index.html">
       <h1>comedi.ai</h1>
     </a>
   </div>
 
   <div class="container">
     <div class="tab-header">
-      <a href="/signup.html" class="tab">Sign Up</a>
-      <a href="/signin.html" class="tab active">Log In</a>
+      <a href="signup.html" class="tab">Sign Up</a>
+      <a href="signin.html" class="tab active">Log In</a>
     </div>
 
     <div class="form-content">
@@ -252,7 +252,7 @@
         </div>
 
         <div class="signup-link">
-          Don't have an account? <a href="/signup.html">Sign Up</a>
+          Don't have an account? <a href="signup.html">Sign Up</a>
         </div>
       </form>
     </div>
@@ -289,9 +289,8 @@
         localStorage.setItem('token', 'fake-token-' + Date.now());
         localStorage.setItem('user', JSON.stringify(user));
         
-        // Redirect to dashboard
-        alert('Login successful! Redirecting to dashboard...');
-        window.location.href = '/dashboard.html';
+        // Redirect to dashboard without alert
+        window.location.href = 'dashboard.html';
       } else {
         alert('Invalid email or password');
       }
