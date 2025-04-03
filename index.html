@@ -369,9 +369,21 @@
     
     .testimonial-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 2rem;
       margin-top: 4rem;
+    }
+    
+    @media (max-width: 1024px) {
+      .testimonial-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 640px) {
+      .testimonial-grid {
+        grid-template-columns: 1fr;
+      }
     }
     
     .testimonial-card {
@@ -840,6 +852,10 @@
       animation-delay: 0.4s;
     }
     
+    .delay-5 {
+      animation-delay: 0.5s;
+    }
+    
     /* Responsive styles */
     @media (max-width: 992px) {
       .nav-links {
@@ -975,8 +991,7 @@
           <a href="#features">Features</a>
           <a href="#testimonials">Testimonials</a>
           <a href="#pricing">Pricing</a>
-          <a href="#about">About</a>
-          <a href="#contact" class="btn btn-primary">Contact us →</a>
+          <a href="#contact" class="btn btn-primary">Contact Us</a>
         </div>
         <button class="mobile-menu-btn">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -996,21 +1011,21 @@
       <div class="container">
         <div class="hero-content">
           <span class="overline fade-in-up">LAUGH LOUDER, LIVE BRIGHTER</span>
-          <h1 class="fade-in-up delay-1">Unleash Your Inner Comedian</h1>
+          <h1 class="fade-in-up delay-1">Your Premium Comedy Coach</h1>
           <p class="fade-in-up delay-2">Discover the art of humor with comedi.ai, your AI-powered comedy coach. Whether you're cracking jokes or delivering punchlines, we'll help you master the craft.</p>
           <div class="hero-buttons fade-in-up delay-3">
-            <a href="#try-free" class="btn btn-primary">Try It Free</a>
+            <a href="/signin.html" class="btn btn-primary">
+              Start Your Free Trial
+            </a>
             <a href="#how-it-works" class="btn btn-secondary btn-with-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="12" cy="12" r="10"></circle>
                 <polygon points="10 8 16 12 10 16 10 8"></polygon>
               </svg>
               Watch How It Works
             </a>
           </div>
-          <div class="hero-image fade-in-up delay-4">
-            <p>Video Demo Placeholder</p>
-          </div>
+          <div id="hover-card-demo" class="hero-image fade-in-up delay-4"></div>
         </div>
       </div>
     </section>
@@ -1026,35 +1041,35 @@
           <div class="feature-card fade-in-up">
             <div class="feature-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10a9.98 9.98 0 0 1-6.19-2.13l-3.5 1.399a1 1 0 0 1-1.31-1.311l1.4-3.5A9.98 9.98 0 0 1 2 12C2 6.477 6.477 2 12 2ZM8 14s2 1 4 1 4-1 4-1" />
-                <circle cx="8" cy="10" r="1" />
-                <circle cx="16" cy="10" r="1" />
+                <circle cx="12" cy="12" r="10"/>
+                <circle cx="12" cy="12" r="4"/>
               </svg>
             </div>
             <h3>AI-POWERED INSIGHTS</h3>
-            <p>Our AI studies your unique comedic voice and offers personalized suggestions to enhance your natural style.</p>
+            <p>Harness our unique comedic data to deliver personalized suggestions or enhance your natural style.</p>
           </div>
           <div class="feature-card fade-in-up delay-1">
             <div class="feature-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
-                <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-                <path d="M12 19v3" />
-                <path d="M8 22h8" />
+                <path d="M22 8.5C22 12.09 19.09 15 15.5 15C15.33 15 15.15 14.99 14.98 14.98C14.73 11.81 12.19 9.27 9.02 9.02C9.01 8.85 9 8.67 9 8.5C9 4.91 11.91 2 15.5 2C19.09 2 22 4.91 22 8.5Z"/>
+                <path d="M15 15.5C15 19.09 12.09 22 8.5 22C4.91 22 2 19.09 2 15.5C2 11.91 4.91 9 8.5 9C8.67 9 8.85 9.01 9.02 9.02C12.19 9.27 14.73 11.81 14.98 14.98C14.99 15.15 15 15.33 15 15.5Z"/>
               </svg>
             </div>
             <h3>CONFIDENCE BOOST</h3>
-            <p>Gain the tools and techniques needed to deliver your jokes with perfect timing and maximum audience impact.</p>
+            <p>Access the fuels and techniques needed to elevate your stage presence and maximize audience impact.</p>
           </div>
           <div class="feature-card fade-in-up delay-2">
             <div class="feature-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M18 8l-6 6-6-6" />
-                <path d="M18 16l-6-6-6 6" />
+                <path d="M9.5 2L12 6L14.5 2"/>
+                <path d="M7 12L3 14.5L7 17"/>
+                <path d="M21 14.5L17 12L17 17"/>
+                <path d="M9.5 22L12 18L14.5 22"/>
+                <circle cx="12" cy="12" r="3"/>
               </svg>
             </div>
             <h3>CREATIVE HUMOR</h3>
-            <p>Generate fresh, original material that fits your style and resonates with your audience, making every performance memorable.</p>
+            <p>From punchlines to humor narratives, explore new ways to be funny, making every performance memorable.</p>
           </div>
         </div>
       </div>
@@ -1079,32 +1094,52 @@
             </div>
           </div>
           <div class="testimonial-card fade-in-up delay-1">
-            <p class="testimonial-quote">"I use it before every keynote. It makes me sound confident, clever, and relatable. My engagement scores have gone up 40% since I started using Comedi."</p>
+            <p class="testimonial-quote">"I was terrified of giving a big speech at my best friend's wedding. Comedi.ai helped me add some lighthearted jokes that totally broke the ice. Everyone loved it, and I actually had fun up there for once!"</p>
             <div class="testimonial-author">
-              <div class="author-avatar">A</div>
+              <div class="author-avatar">P</div>
               <div class="author-info">
-                <cite>Alana B.</cite>
-                <p>Public Speaker</p>
+                <cite>Priya M.</cite>
+                <p>Maid of Honor</p>
               </div>
             </div>
           </div>
           <div class="testimonial-card fade-in-up delay-2">
-            <p class="testimonial-quote">"My social media content was flat until I tried Comedi.ai. Now my engagement is through the roof, and brands are reaching out for partnerships."</p>
+            <p class="testimonial-quote">"My bakery's Instagram was so boring—just pics of cupcakes with no personality. Comedi.ai helped me come up with funny captions and posts that got people laughing and commenting. Now my followers are up 30%, and I've got new customers walking in!"</p>
             <div class="testimonial-author">
-              <div class="author-avatar">M</div>
+              <div class="author-avatar">C</div>
               <div class="author-info">
-                <cite>Marcos R.</cite>
-                <p>Content Creator</p>
+                <cite>Carlos G.</cite>
+                <p>Bakery Owner</p>
               </div>
             </div>
           </div>
           <div class="testimonial-card fade-in-up delay-3">
-            <p class="testimonial-quote">"As a business executive, I used to dread presentations. Comedi.ai helped me inject the perfect amount of humor into my talks. Now my team actually looks forward to my meetings!"</p>
+            <p class="testimonial-quote">"Teaching middle schoolers is tough—they're a tough crowd! Comedi.ai helped me sprinkle some humor into my lessons, and now my students are way more engaged. They even started calling me the 'funny teacher'—best compliment ever!"</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">E</div>
+              <div class="author-info">
+                <cite>Emily R.</cite>
+                <p>Middle School Teacher</p>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card fade-in-up delay-4">
+            <p class="testimonial-quote">"I always had solid setups for my jokes, but my punchlines were hit or miss. Comedi.ai helped me nail those endings—now my sets are tighter, and I'm getting way more laughs! It's like having a comedy writer on speed dial. I even landed a paid gig last week!"</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">M</div>
+              <div class="author-info">
+                <cite>Malik J.</cite>
+                <p>Stand-Up Comedian</p>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card fade-in-up delay-5">
+            <p class="testimonial-quote">"I was so nervous talking to this guy I liked at a party—I kept overthinking everything! Comedi.ai gave me some funny one-liners to break the ice, and he couldn't stop laughing. We ended up chatting all night, and now we're going on our third date!"</p>
             <div class="testimonial-author">
               <div class="author-avatar">S</div>
               <div class="author-info">
-                <cite>Sarah K.</cite>
-                <p>Business Executive</p>
+                <cite>Sophie L.</cite>
+                <p>Hopeless Romantic</p>
               </div>
             </div>
           </div>
@@ -1125,7 +1160,7 @@
             <div class="pricing-card silver fade-in-up delay-1">
               <div class="silver-badge">SILVER TIER</div>
               <div class="pricing-header">
-                <h2 class="price-value">$16.49<span class="price-period">/month</span></h2>
+                <h2 class="price-value">$14.99<span class="price-period">/month</span></h2>
                 <p>For aspiring comedians ready to level up their game</p>
               </div>
               <ul class="pricing-features">
@@ -1231,6 +1266,17 @@
         </div>
       </div>
     </section>
+
+    <div id="hover-card-demo"></div>
+
+    <script type="module">
+      import { createRoot } from 'react-dom/client';
+      import { HoverCardDemo } from './components/HoverCardDemo';
+
+      const container = document.getElementById('hover-card-demo');
+      const root = createRoot(container);
+      root.render(<HoverCardDemo />);
+    </script>
   </main>
 
   <footer>
