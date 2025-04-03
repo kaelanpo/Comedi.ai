@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -183,6 +184,21 @@
     .signup-link a:hover {
       text-decoration: underline;
     }
+
+    .forgot-password {
+      text-align: right;
+      margin-bottom: 20px;
+    }
+
+    .forgot-password a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .forgot-password a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -200,14 +216,16 @@
 
     <div class="form-content">
       <h2>Log In</h2>
-      <form action="#" method="POST">
+      <form id="signinForm" onsubmit="handleSignin(event)">
         <div class="form-group">
-          <input type="email" placeholder="Email Address*" required>
+          <input type="email" name="email" placeholder="Email Address*" required>
         </div>
         <div class="form-group">
-          <input type="password" placeholder="Password*" required>
+          <input type="password" name="password" placeholder="Password*" required>
         </div>
-
+        <div class="forgot-password">
+          <a href="#">Forgot Password?</a>
+        </div>
         <button type="submit" class="signin-btn">Log In</button>
 
         <div class="divider">
@@ -239,5 +257,53 @@
       </form>
     </div>
   </div>
+
+  <script>
+    async function handleSignin(event) {
+      event.preventDefault();
+      
+      const form = event.target;
+      const formData = new FormData(form);
+      
+      // Get form values
+      const email = formData.get('email');
+      const password = formData.get('password');
+      
+      // Basic validation
+      if (!email || !password) {
+        alert('Email and password are required');
+        return;
+      }
+      
+      // For demo purposes, we'll just use client-side authentication
+      if (email && password) {
+        // Create mock user data
+        const user = {
+          id: Date.now().toString(),
+          firstName: 'Kaelan',
+          lastName: 'Posey',
+          email: email
+        };
+        
+        // Store user data in localStorage
+        localStorage.setItem('token', 'fake-token-' + Date.now());
+        localStorage.setItem('user', JSON.stringify(user));
+        
+        // Redirect to dashboard
+        alert('Login successful! Redirecting to dashboard...');
+        window.location.href = '/dashboard.html';
+      } else {
+        alert('Invalid email or password');
+      }
+    }
+    
+    // Social signin handlers
+    const socialButtons = document.querySelectorAll('.social-button');
+    socialButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        alert('Social login coming soon!');
+      });
+    });
+  </script>
 </body>
 </html> 
