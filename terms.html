@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms and Conditions - Comedi.ai</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Raleway:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --primary-light: #818cf8;
+      --primary-ultra-light: #c7d2fe;
+      --white: #ffffff;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, var(--white) 0%, var(--primary-ultra-light) 100%);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .logo {
+      text-align: center;
+      padding: 40px 0;
+    }
+
+    .logo a {
+      text-decoration: none;
+    }
+
+    .logo h1 {
+      font-family: 'Raleway', sans-serif;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 800;
+      font-size: 40px;
+      margin: 0;
+      letter-spacing: -1px;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      width: 100%;
+      max-width: 800px;
+      margin: 0 16px 40px;
+      padding: 32px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    h2 {
+      font-family: 'Raleway', sans-serif;
+      font-size: 28px;
+      margin: 0 0 24px 0;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+
+    h3 {
+      font-family: 'Raleway', sans-serif;
+      font-size: 20px;
+      margin: 32px 0 16px 0;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    p {
+      line-height: 1.6;
+      margin-bottom: 16px;
+      color: #333;
+    }
+
+    ul, ol {
+      margin-bottom: 16px;
+      padding-left: 24px;
+    }
+
+    li {
+      margin-bottom: 8px;
+      line-height: 1.6;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 32px;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .last-updated {
+      font-size: 14px;
+      color: #666;
+      margin-top: 40px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo">
+    <a href="index.html">
+      <h1>comedi.ai</h1>
+    </a>
+  </div>
+
+  <div class="container">
+    <h2>Terms and Conditions</h2>
+    
+    <p>Last Updated: <span id="current-date">January 1, 2023</span></p>
+    
+    <p>Welcome to Comedi.ai. By accessing or using our website, you agree to be bound by these Terms and Conditions. Please read them carefully.</p>
+    
+    <h3>1. Acceptance of Terms</h3>
+    <p>By accessing and using Comedi.ai, you accept and agree to be bound by the terms and provision of this agreement.</p>
+    
+    <h3>2. Use License</h3>
+    <p>Permission is granted to temporarily access the materials (information or software) on Comedi.ai's website for personal, non-commercial transitory viewing only.</p>
+    
+    <h3>3. Disclaimer</h3>
+    <p>The materials on Comedi.ai's website are provided on an 'as is' basis. Comedi.ai makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
+    
+    <h3>4. Limitations</h3>
+    <p>In no event shall Comedi.ai or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Comedi.ai's website.</p>
+    
+    <h3>5. Accuracy of Materials</h3>
+    <p>The materials appearing on Comedi.ai's website could include technical, typographical, or photographic errors. Comedi.ai does not warrant that any of the materials on its website are accurate, complete or current.</p>
+    
+    <h3>6. Links</h3>
+    <p>Comedi.ai has not reviewed all of the sites linked to its website and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by Comedi.ai of the site.</p>
+    
+    <h3>7. Modifications</h3>
+    <p>Comedi.ai may revise these terms of service for its website at any time without notice. By using this website you are agreeing to be bound by the then current version of these terms of service.</p>
+    
+    <h3>8. Governing Law</h3>
+    <p>These terms and conditions are governed by and construed in accordance with the laws and you irrevocably submit to the exclusive jurisdiction of the courts in that location.</p>
+    
+    <a href="javascript:history.back()" class="back-link">← Back to previous page</a>
+  </div>
+  
+  <div class="last-updated">
+    &copy; <span id="current-year">2023</span> Comedi.ai. All rights reserved.
+  </div>
+
+  <script>
+    // Set current date
+    const today = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById('current-date').textContent = today.toLocaleDateString('en-US', options);
+    
+    // Set current year
+    document.getElementById('current-year').textContent = today.getFullYear();
+  </script>
+</body>
+</html> 

@@ -1,22 +1,72 @@
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const path = require('path');
+import 'dotenv/config';
+import express from 'express';
+import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 
-// Enable CORS from any origin
+// 1. First, enable CORS
 app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  origin: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
 }));
 
-// Body parser middleware
-app.use(express.json());
+// Debug middleware to log request bodies
+app.use((req, res, next) => {
+  console.log('=== DEBUG REQUEST ===');
+  console.log('Method:', req.method);
+  console.log('Path:', req.path);
+  console.log('Headers:', req.headers);
+  console.log('Body:', req.body);
+  console.log('=== END DEBUG ===');
+  next();
+});
 
-// Serve static files from the parent directory
-app.use(express.static(path.join(__dirname, '../')));
+// 2. Then, body parser middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// 3. Static file serving - BEFORE API routes
+const staticPath = path.resolve('/Users/macbook/COMEDI.AI');
+console.log('Serving static files from:', staticPath);
+
+app.use(express.static(staticPath, {
+  dotfiles: 'deny',
+  etag: true,
+  extensions: ['html', 'htm'],
+  index: false, // Disable directory indexing
+  maxAge: '1d',
+  fallthrough: true
+}));
+
+// 4. Import and use API routes AFTER static file serving
+import grokRouter from './routes/grok.js';
+import roastRouter from './routes/roast.js';
+import openRouterRouter from './routes/openrouter.js';
+
+app.use('/api', grokRouter);
+app.use('/api', roastRouter);
+app.use('/api/openrouter', openRouterRouter);
+
+// 5. Explicit route for dashboard.html
+app.get(['/', '/dashboard'], (req, res, next) => {
+  const dashboardPath = path.join(staticPath, 'dashboard.html');
+  console.log('Attempting to serve dashboard from:', dashboardPath);
+  
+  res.sendFile(dashboardPath, (err) => {
+    if (err) {
+      console.error('Error serving dashboard.html:', err);
+      next(err);
+    }
+  });
+});
 
 // Simple in-memory user storage for testing
 const users = [];
@@ -136,6 +186,6 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 const server = app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT} - http://localhost:${PORT}`);
-  console.log(`Test API at: http://localhost:${PORT}/api`);
-}); 
+  console.log(`Server running at http://localhost:${PORT}`);
+  console.log('API endpoints available through Vite proxy at http://localhost:3000/api');
+});

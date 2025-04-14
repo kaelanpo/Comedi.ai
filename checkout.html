@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - Comedi.ai</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --background: #1a1b1e;
+      --card-bg: #25262b;
+      --text: #fff;
+      --text-secondary: rgba(255, 255, 255, 0.65);
+      --border: rgba(255, 255, 255, 0.1);
+      --primary: #228be6;
+      --radius: 12px;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--background);
+      color: var(--text);
+      margin: 0;
+      padding: 2rem;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .billing-toggle {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .billing-option {
+      flex: 1;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .billing-option.active {
+      background: #1c3d5d;
+    }
+
+    .billing-option .radio {
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--text-secondary);
+      border-radius: 50%;
+    }
+
+    .billing-option.active .radio {
+      border-color: var(--primary);
+    }
+
+    .billing-option.active .radio::after {
+      content: '';
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 12px;
+      height: 12px;
+      background: var(--primary);
+      border-radius: 50%;
+    }
+
+    .billing-details {
+      margin-left: 2.5rem;
+    }
+
+    .billing-type {
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    .billing-price {
+      color: var(--text-secondary);
+      margin: 0.5rem 0 0;
+    }
+
+    .save-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(34, 139, 230, 0.1);
+      color: var(--primary);
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .order-details {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 0 0 1.5rem;
+    }
+
+    .order-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .order-row:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .order-label {
+      color: var(--text);
+    }
+
+    .order-value {
+      font-weight: 500;
+    }
+
+    .order-period {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    .tax-note {
+      color: var(--text-secondary);
+      text-align: right;
+      font-size: 0.875rem;
+    }
+
+    .payment-form {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 0.75rem;
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-size: 1rem;
+      font-family: inherit;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .form-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgba(255, 255, 255, 0.65)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      background-size: 1rem;
+      padding-right: 2.5rem;
+    }
+
+    .payment-methods {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .payment-method {
+      flex: 1;
+      padding: 1rem;
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--text);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .payment-method:hover {
+      background: rgba(34, 139, 230, 0.1);
+      border-color: var(--primary);
+    }
+
+    .payment-method.active {
+      border: 1px solid var(--primary);
+      background: rgba(34, 139, 230, 0.1);
+    }
+
+    .payment-method img {
+      width: 50px;
+      height: 32px;
+      object-fit: contain;
+    }
+
+    .payment-method.apple-pay {
+      background: #1c1c1e;
+      border: none;
+      border-radius: 8px;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 14px;
+      gap: 4px;
+      width: 100%;
+      height: auto;
+    }
+
+    .payment-method.apple-pay:hover {
+      background: #1c1c1e;
+      border: none;
+    }
+
+    .payment-method.apple-pay img {
+      width: 32px;
+      height: 20px;
+      object-fit: contain;
+    }
+
+    .payment-method.apple-pay span {
+      display: block;
+      color: rgba(235, 235, 245, 0.6);
+      font-size: 13px;
+      font-weight: 400;
+      margin-top: 2px;
+    }
+
+    .email-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-bottom: 1.5rem;
+    }
+
+    .email-input {
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 1rem;
+      font-family: inherit;
+      width: 100%;
+      padding: 0;
+    }
+
+    .email-input:focus {
+      outline: none;
+    }
+
+    .email-input::placeholder {
+      color: var(--text-secondary);
+    }
+
+    .change-btn {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .card-input-group {
+      display: grid;
+      grid-template-columns: 0.6fr 0.6fr;
+      gap: 2rem;
+      justify-content: start;
+    }
+
+    .card-icons {
+      display: flex;
+      gap: 0.5rem;
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .card-icons img {
+      height: 20px;
+      width: auto;
+    }
+
+    .card-input-container {
+      position: relative;
+    }
+
+    .cvc-hint {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    .subscribe-btn {
+      width: 100%;
+      padding: 1rem;
+      background: white;
+      color: black;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 1.5rem;
+    }
+
+    .terms-text {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      margin-top: 1rem;
+      line-height: 1.5;
+    }
+
+    .terms-link {
+      color: var(--text-secondary);
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="billing-toggle">
+      <div class="billing-option">
+        <div class="radio"></div>
+        <div class="billing-details">
+          <h3 class="billing-type">Monthly</h3>
+          <p class="billing-price">$14.99/month + tax</p>
+        </div>
+      </div>
+      <div class="billing-option active">
+        <div class="radio"></div>
+        <div class="billing-details">
+          <h3 class="billing-type">Yearly</h3>
+          <p class="billing-price">$99.90/year + tax</p>
+        </div>
+        <div class="save-badge">Save 17%</div>
+      </div>
+    </div>
+
+    <div class="order-details">
+      <h2 class="section-title">Order details</h2>
+      <div class="order-row">
+        <div>
+          <div class="order-label">Pro plan</div>
+          <div class="order-period">Annually</div>
+        </div>
+        <div class="order-value">$99.90</div>
+      </div>
+      <div class="order-row">
+        <div class="order-label">Subtotal</div>
+        <div class="order-value">$99.90</div>
+      </div>
+      <div class="order-row">
+        <div class="order-label">Tax</div>
+        <div class="tax-note">Enter address to calculate</div>
+      </div>
+      <div class="order-row">
+        <div class="order-label">Total due today</div>
+        <div class="order-value">$99.90</div>
+      </div>
+    </div>
+
+    <div class="payment-form">
+      <h2 class="section-title">Payment method</h2>
+      
+      <div class="payment-methods">
+        <div class="payment-method active">
+          <img src="data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='24' height='24' rx='4' fill='%23228BE6'/%3E%3Cpath d='M7 15V9C7 7.89543 7.89543 7 9 7H15C16.1046 7 17 7.89543 17 9V15C17 16.1046 16.1046 17 15 17H9C7.89543 17 7 16.1046 7 15Z' stroke='white' stroke-width='2'/%3E%3Cpath d='M7 11H17' stroke='white' stroke-width='2'/%3E%3C/svg%3E" alt="Card">
+          <span>Card</span>
+        </div>
+        <a href="#" class="payment-method apple-pay" onclick="handleApplePay(event)">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='20'%3E%3Crect width='32' height='20' rx='4' fill='%23000'/%3E%3Cpath d='M8.2 6.4c-.4.5-1 .8-1.6.8 0-.6.2-1.1.6-1.5.4-.4 1-.7 1.6-.6.1.6-.2 1-.6 1.3m.4.6c-.9 0-1.3.4-2 .4-.7 0-1.2-.4-2-.4-1 0-2.1.6-2.6 1.7-1.1 1.9-.3 4.8.8 6.3.5.8 1.2 1.6 2 1.6.8 0 1.1-.5 2.1-.5s1.3.5 2.1.5c.9 0 1.5-.8 2.1-1.6.6-.9.9-1.8.9-1.8s-1.7-.7-1.7-2.5c0-2 1.6-2.9 1.7-3-.9-1.4-2.3-1.5-2.8-1.6' fill='%23fff'/%3E%3Cpath d='M14.4 4h2.3l1.9 4.5 1.8-4.5h2.3l-3 7.5c-.5 1.1-1.1 1.5-1.9 1.5-.3 0-.6 0-.9-.1l-.2-1.3c.2.1.4.1.6.1.4 0 .7-.2.9-.7l.2-.4-2.8-6.5h2.3l1.1 3.6L14.4 4' fill='%23fff'/%3E%3C/svg%3E" alt="Apple Pay">
+          <span>Apple Pay</span>
+        </a>
+      </div>
+
+      <div class="email-section">
+        <input type="email" class="email-input" placeholder="Enter your email">
+        <a href="#" class="change-btn">Change</a>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Country or region</label>
+        <select class="form-input form-select">
+          <option value="US">United States</option>
+          <option value="CA">Canada</option>
+          <option value="GB">United Kingdom</option>
+          <option value="AU">Australia</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Address</label>
+        <input type="text" class="form-input" placeholder="Enter your address">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Card number</label>
+        <div class="card-input-container">
+          <input type="text" 
+                 class="form-input" 
+                 placeholder="1234-1234-1234-1234"
+                 maxlength="19"
+                 inputmode="numeric">
+          <div class="card-icons">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%231A1F71' d='M15 24h18v4H15z'/%3E%3Cpath fill='%23F7B600' d='M44 29H4c-2.2 0-4-1.8-4-4V11c0-2.2 1.8-4 4-4h40c2.2 0 4 1.8 4 4v14c0 2.2-1.8 4-4 4z'/%3E%3C/svg%3E" alt="Visa">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23FF5F00' d='M24 32c4.4 0 8-3.6 8-8s-3.6-8-8-8-8 3.6-8 8 3.6 8 8 8z'/%3E%3Cpath fill='%23EB001B' d='M24 16c-4.4 0-8 3.6-8 8h16c0-4.4-3.6-8-8-8z'/%3E%3Cpath fill='%23F79E1B' d='M24 32c4.4 0 8-3.6 8-8H16c0 4.4 3.6 8 8 8z'/%3E%3C/svg%3E" alt="Mastercard">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%232557D6' d='M44 11v26c0 2.2-1.8 4-4 4H8c-2.2 0-4-1.8-4-4V11c0-2.2 1.8-4 4-4h32c2.2 0 4 1.8 4 4z'/%3E%3C/svg%3E" alt="Amex">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23FF6B00' d='M44 24c0 11-9 20-20 20S4 35 4 24 13 4 24 4s20 9 20 20z'/%3E%3C/svg%3E" alt="Discover">
+          </div>
+        </div>
+      </div>
+
+      <div class="card-input-group">
+        <div class="form-group">
+          <label class="form-label">Expiration date</label>
+          <input type="text" 
+                 class="form-input" 
+                 placeholder="MM / YYYY"
+                 maxlength="9"
+                 inputmode="numeric">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Security code</label>
+          <div class="card-input-container">
+            <input type="text" 
+                   class="form-input" 
+                   placeholder="CVC" 
+                   maxlength="3"
+                   inputmode="numeric"
+                   autocomplete="cc-csc">
+            <span class="cvc-hint">123</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="subscribe-btn" onclick="handleSubscribe()">Subscribe</button>
+
+      <p class="terms-text">
+        By providing your payment information, you allow Comedi.ai to charge your
+        card in the amount above now annually until you cancel in accordance with our
+        <a href="#" class="terms-link">terms</a>. You can cancel at any time.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // Add Subscribe handler - moved outside DOMContentLoaded
+    function handleSubscribe() {
+      // Here you would typically process the payment first
+      // For now, we'll just redirect to the dashboard
+      window.location.href = '/dashboard.html';
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const billingOptions = document.querySelectorAll('.billing-option');
+      const orderPeriod = document.querySelector('.order-period');
+      const orderValues = document.querySelectorAll('.order-value');
+      const securityCodeInput = document.querySelector('input[placeholder="CVC"]');
+      const expirationInput = document.querySelector('input[placeholder="MM / YYYY"]');
+      const cardNumberInput = document.querySelector('input[placeholder="1234-1234-1234-1234"]');
+      
+      // Card number input handler
+      cardNumberInput.addEventListener('input', function(e) {
+        // Remove any non-digit characters
+        let value = e.target.value.replace(/\D/g, '');
+        
+        // Limit to 16 digits
+        value = value.slice(0, 16);
+        
+        // Add hyphens every 4 digits
+        let formattedValue = '';
+        for (let i = 0; i < value.length; i++) {
+          if (i > 0 && i % 4 === 0) {
+            formattedValue += '-';
+          }
+          formattedValue += value[i];
+        }
+        
+        e.target.value = formattedValue;
+      });
+      
+      // Expiration date input handler
+      expirationInput.addEventListener('input', function(e) {
+        // Remove any non-digit characters
+        let value = e.target.value.replace(/\D/g, '');
+        
+        // Add formatting
+        if (value.length > 0) {
+          // Get month and year parts
+          const month = value.slice(0, 2);
+          const year = value.slice(2, 6);
+          
+          // Format with slash
+          if (value.length > 2) {
+            value = month + ' / ' + year;
+          } else {
+            value = month;
+          }
+          
+          // Validate month (01-12)
+          if (month.length === 2) {
+            const monthNum = parseInt(month);
+            if (monthNum < 1) value = '01' + value.slice(2);
+            if (monthNum > 12) value = '12' + value.slice(2);
+          }
+        }
+        
+        e.target.value = value;
+      });
+      
+      // Security code input handler
+      securityCodeInput.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+        value = value.slice(0, 3);
+        e.target.value = value;
+      });
+      
+      function updatePricing(isYearly) {
+        const price = isYearly ? 99.90 : 14.99;
+        const period = isYearly ? 'Annually' : 'Monthly';
+        
+        orderPeriod.textContent = period;
+        
+        orderValues.forEach(value => {
+          value.textContent = `$${price.toFixed(2)}`;
+        });
+      }
+      
+      billingOptions.forEach((option, index) => {
+        option.addEventListener('click', function() {
+          billingOptions.forEach(opt => opt.classList.remove('active'));
+          this.classList.add('active');
+          updatePricing(index === 1);
+        });
+      });
+
+      // Add Apple Pay handler
+      function handleApplePay(event) {
+        event.preventDefault();
+        const paymentMethods = document.querySelectorAll('.payment-method');
+        paymentMethods.forEach(method => method.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+        // Here you would typically initiate the Apple Pay flow
+      }
+    });
+  </script>
+</body>
+</html> 

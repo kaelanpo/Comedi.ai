@@ -13,7 +13,7 @@
   <title>Comedi.ai - AI-Powered Comedy Coach</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css?v=1.0.2">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
@@ -46,7 +46,7 @@
     }
     
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+      font-family: 'Raleway', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
       color: var(--text-primary);
       line-height: 1.6;
       background-color: var(--white);
@@ -122,10 +122,34 @@
     .logo {
       font-weight: 800;
       font-size: 1.5rem;
-      color: var(--primary);
       text-decoration: none;
       display: flex;
       align-items: center;
+      background: linear-gradient(
+        90deg,
+        #00bfff,  /* Electric Blue */
+        #9370db,  /* Purple */
+        #ff1493,  /* Hot Pink */
+        #da70d6,  /* Orchid */
+        #40e0d0,  /* Turquoise */
+        #00bfff,  /* Electric Blue */
+        #9370db,  /* Purple */
+        #ff1493,  /* Hot Pink */
+        #da70d6,  /* Orchid */
+        #40e0d0   /* Turquoise */
+      );
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-fill-color: transparent;
+      animation: logoShine 8s linear infinite;
+      filter: drop-shadow(0 0 2px rgba(0, 191, 255, 0.3));
+    }
+    
+    @keyframes logoShine {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 300% 50%; }
     }
     
     .nav-links {
@@ -518,14 +542,14 @@
       inset: 0;
       background: linear-gradient(
         45deg,
-        #8E8E8E,
-        #D8D8D8,
-        #8E8E8E,
-        #FFFFFF,
-        #8E8E8E,
-        #D8D8D8,
-        #FFFFFF,
-        #8E8E8E
+        #e91e63,
+        #f48fb1,
+        #e91e63,
+        #f8bbd0,
+        #c2185b,
+        #e91e63,
+        #f8bbd0,
+        #e91e63
       );
       background-size: 200% 200%;
       z-index: 0;
@@ -552,28 +576,28 @@
       top: 0;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: linear-gradient(135deg, #6E6E6E, #A0A0A0);
+      background: linear-gradient(135deg, #c2185b, #e91e63);
       color: white;
       padding: 0.5rem 1.5rem;
       border-radius: var(--radius-md);
       font-size: 0.8rem;
       font-weight: 600;
       letter-spacing: 1px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 4px 8px rgba(233, 30, 99, 0.3);
       z-index: 2;
       text-transform: uppercase;
       animation: silverBadgePulse 2s infinite;
     }
 
     @keyframes silverBadgePulse {
-      0% { box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); }
-      50% { box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); }
-      100% { box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); }
+      0% { box-shadow: 0 4px 8px rgba(233, 30, 99, 0.3); }
+      50% { box-shadow: 0 8px 16px rgba(233, 30, 99, 0.4); }
+      100% { box-shadow: 0 4px 8px rgba(233, 30, 99, 0.3); }
     }
 
     .pricing-card.silver .pricing-header h3,
     .pricing-card.silver .price-value {
-      background: linear-gradient(135deg, #4A4A4A, #7E7E7E, #4A4A4A);
+      background: linear-gradient(135deg, #c2185b, #e91e63, #c2185b);
       background-size: 200% auto;
       -webkit-background-clip: text;
       background-clip: text;
@@ -590,12 +614,12 @@
     }
 
     .pricing-card.silver .pricing-features li svg {
-      color: #6E6E6E;
+      color: #e91e63;
       animation: checkmarkPulse 2s ease-in-out infinite;
     }
 
     .btn-silver {
-      background: linear-gradient(135deg, #6E6E6E, #909090) !important;
+      background: linear-gradient(135deg, #c2185b, #e91e63) !important;
       color: white !important;
       border: none !important;
       padding: 0.75rem 2rem !important;
@@ -605,15 +629,15 @@
       text-align: center !important;
       display: inline-block !important;
       text-decoration: none !important;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+      box-shadow: 0 4px 8px rgba(233, 30, 99, 0.2) !important;
       text-transform: uppercase !important;
       letter-spacing: 0.5px !important;
     }
 
     .btn-silver:hover {
       transform: translateY(-2px) !important;
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3) !important;
-      background: linear-gradient(135deg, #5A5A5A, #808080) !important;
+      box-shadow: 0 6px 12px rgba(233, 30, 99, 0.3) !important;
+      background: linear-gradient(135deg, #ad1457, #d81b60) !important;
     }
 
     .pricing-card.silver .pricing-features {
@@ -625,7 +649,7 @@
     }
 
     .pricing-card.silver .pricing-features li {
-      color: #4a4a4a;
+      color: #333333;
       font-weight: 500;
     }
     
@@ -1011,7 +1035,7 @@
       <div class="container">
         <div class="hero-content">
           <span class="overline fade-in-up">LAUGH LOUDER, LIVE BRIGHTER</span>
-          <h1 class="fade-in-up delay-1">Your Premium Comedy Coach</h1>
+          <h1 class="fade-in-up delay-1" style="color: var(--primary);">Your Premium Comedy Coach</h1>
           <p class="fade-in-up delay-2">Discover the art of humor with comedi.ai, your AI-powered comedy coach. Whether you're cracking jokes or delivering punchlines, we'll help you master the craft.</p>
           <div class="hero-buttons fade-in-up delay-3">
             <a href="signin.html" class="btn btn-primary">
@@ -1158,7 +1182,7 @@
           <div class="pricing-grid">
             <!-- Silver tier -->
             <div class="pricing-card silver fade-in-up delay-1">
-              <div class="silver-badge">SILVER TIER</div>
+              <div class="silver-badge">PREMIUM TIER</div>
               <div class="pricing-header">
                 <h2 class="price-value">$14.99<span class="price-period">/month</span></h2>
                 <p>For aspiring comedians ready to level up their game</p>
@@ -1195,7 +1219,7 @@
                   Premium support
                 </li>
               </ul>
-              <a href="signin.html" class="btn btn-silver pricing-btn">Go Silver</a>
+              <a href="signin.html" class="btn btn-silver pricing-btn">Go Premium</a>
             </div>
 
             <!-- Annual Pro tier -->
@@ -1269,14 +1293,7 @@
 
     <div id="hover-card-demo"></div>
 
-    <script type="module">
-      import { createRoot } from 'react-dom/client';
-      import { HoverCardDemo } from './components/HoverCardDemo';
-
-      const container = document.getElementById('hover-card-demo');
-      const root = createRoot(container);
-      root.render(<HoverCardDemo />);
-    </script>
+    <script type="module" src="./main.jsx"></script>
   </main>
 
   <footer>
