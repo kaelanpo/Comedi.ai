@@ -1,5 +1,5 @@
 import express from 'express';
-import axios from 'axios';
+import fetch from 'node-fetch';
 
 const router = express.Router();
 
@@ -24,106 +24,74 @@ RULES:
 
 // Middleware to validate request
 const validateRequest = (req, res, next) => {
-  const { text } = req.body;
-  if (!text || typeof text !== 'string' || text.trim().length === 0) {
+  const { message } = req.body;
+  if (!message || typeof message !== 'string' || message.trim().length === 0) {
     return res.status(400).json({
       success: false,
-      error: 'Valid text input is required'
+      error: 'Valid message input is required'
     });
   }
   next();
 };
 
-// Roast endpoint
+// Roast implementation using Grok
 router.post('/roast', validateRequest, async (req, res) => {
   try {
-    const { text, vulgar_mode } = req.body;
-    console.log('Roast request:', { text, vulgar_mode });
-
-    // Check if API key is set
-    if (!process.env.GROK_API_KEY || process.env.GROK_API_KEY === 'your_grok_api_key_here') {
-      // Provide a fallback response
-      const fallbackResponse = `[Initial Insult]: I would roast you, but I'm currently in development mode.
-
-[Main Roast]: You'll need to configure a valid GROK_API_KEY in the .env file first.
-
-[Final Blow]: Until then, I'm about as useful as a screen door on a submarine.`;
-
-      return res.json({
-        success: true,
-        response: fallbackResponse
-      });
-    }
-
-    // Construct messages array
-    const messages = [
-      {
-        role: "system",
-        content: SYSTEM_MESSAGE
-      },
-      {
-        role: "user",
-        content: vulgar_mode ? 
-          `${VULGAR_INSTRUCTIONS}\n\nRoast this person: ${text}` :
-          `Roast this person: ${text}`
-      }
-    ];
-
-    console.log('Sending request to Grok with messages:', JSON.stringify(messages, null, 2));
-
-    // Generate response using Grok API
-    const response = await axios.post(process.env.GROK_API_URL || 'https://api.xai.cx/v1/chat/completions', {
-      model: "grok-3-latest",
-      messages: messages,
-      temperature: 0,
-      max_tokens: 1000,
-      top_p: 1,
-      stream: false
-    }, {
+    const { message } = req.body;
+    
+    // Create a roasting prompt that enforces short, punchy roasts
+    const systemMessage = `You are RoastBot 3000, a hilariously savage AI that specializes in short, punchy roasts. Rules:
+1. Each roast must be 1-3 sentences maximum
+2. Be creative and witty, but never truly mean
+3. Focus on clever wordplay and humor
+4. Keep it playful and entertaining`;
+    
+    const userPrompt = `Roast this in 1-3 sentences: "${message}"`;
+    
+    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.GROK_API_KEY}`
-      }
+        'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        'HTTP-Referer': 'http://localhost:3000',
+        'X-Title': 'COMEDI.AI'
+      },
+      body: JSON.stringify({
+        model: 'x-ai/grok-3-beta',
+        messages: [
+          {
+            role: 'system',
+            content: systemMessage
+          },
+          {
+            role: 'user',
+            content: userPrompt
+          }
+        ],
+        temperature: 0.8, // Keep slightly higher temperature for creativity
+        max_tokens: 100, // Reduced token limit to enforce shorter roasts
+        stream: false
+      })
     });
 
-    console.log('Raw Grok response:', JSON.stringify(response.data, null, 2));
-
-    if (!response.data.choices || !response.data.choices[0] || !response.data.choices[0].message) {
-      throw new Error('Invalid response format from Grok API');
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`OpenRouter API error: ${response.statusText}\n${JSON.stringify(errorData)}`);
     }
 
-    // Extract the response text
-    const responseText = response.data.choices[0].message.content;
-    console.log('Extracted response:', responseText);
-
-    // Validate response format
-    if (!responseText.includes('[Initial Insult]') || 
-        !responseText.includes('[Main Roast]') || 
-        !responseText.includes('[Final Blow]')) {
-      throw new Error('Response does not contain required sections');
-    }
-
-    // Send response
+    const data = await response.json();
+    
     res.json({
       success: true,
-      response: responseText
+      response: data.choices[0].message.content
     });
 
   } catch (error) {
-    console.error('Error generating roast:', error);
-    console.error('Full error details:', {
-      message: error.message,
-      stack: error.stack,
-      response: error.response?.data,
-      status: error.response?.status,
-      headers: error.response?.headers
-    });
+    console.error('Error in roast implementation:', error);
     
-    // Send a more detailed error message
     res.status(500).json({
       success: false,
-      error: 'Failed to generate roast: ' + error.message,
-      details: error.response?.data || error.stack
+      error: 'Failed to process request: ' + error.message
     });
   }
 });

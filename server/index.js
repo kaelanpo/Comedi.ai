@@ -18,6 +18,10 @@ app.use(cors({
   credentials: true
 }));
 
+// 2. Body parser middleware MUST come before debug middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // Debug middleware to log request bodies
 app.use((req, res, next) => {
   console.log('=== DEBUG REQUEST ===');
@@ -28,10 +32,6 @@ app.use((req, res, next) => {
   console.log('=== END DEBUG ===');
   next();
 });
-
-// 2. Then, body parser middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 // 3. Static file serving - BEFORE API routes
 const staticPath = path.resolve('/Users/macbook/COMEDI.AI');
@@ -50,10 +50,12 @@ app.use(express.static(staticPath, {
 import grokRouter from './routes/grok.js';
 import roastRouter from './routes/roast.js';
 import openRouterRouter from './routes/openrouter.js';
+import xaiRouter from './routes/xai.js';
 
 app.use('/api', grokRouter);
 app.use('/api', roastRouter);
-app.use('/api/openrouter', openRouterRouter);
+app.use('/api', openRouterRouter);
+app.use('/api', xaiRouter);
 
 // 5. Explicit route for dashboard.html
 app.get(['/', '/dashboard'], (req, res, next) => {
