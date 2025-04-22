@@ -8,10 +8,14 @@ interface Message {
 }
 
 interface ChatWindowProps {
-  messages: Message[];
+  messages?: Message[];
+  className?: string;
 }
 
-export const ChatWindow: React.FC<ChatWindowProps> = ({ messages }) => {
+export const ChatWindow: React.FC<ChatWindowProps> = ({ 
+  messages = [],
+  className = ''
+}) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -19,15 +23,21 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({ messages }) => {
   }, [messages]);
 
   return (
-    <div className="flex flex-col h-full">
+    <div className={`flex flex-col h-full ${className}`}>
       <div className="flex-1 overflow-y-auto p-4">
-        {messages.map((message) => (
-          <ChatMessage
-            key={message.id}
-            role={message.role}
-            content={message.content}
-          />
-        ))}
+        {messages.length > 0 ? (
+          messages.map((message) => (
+            <ChatMessage
+              key={message.id}
+              role={message.role}
+              content={message.content}
+            />
+          ))
+        ) : (
+          <div className="flex items-center justify-center h-full text-gray-500">
+            No messages yet
+          </div>
+        )}
         <div ref={messagesEndRef} />
       </div>
     </div>
