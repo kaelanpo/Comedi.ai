@@ -15,6 +15,9 @@ export default function Home() {
       
       <div className="space-x-4">
         <Link to="/dashboard">Dashboard</Link>
+        <Link to="/signin">
+          <button className="btn">Get Started</button>
+        </Link>
         <Link 
           to="/chat" 
           className="inline-block px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
