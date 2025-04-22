@@ -1,57 +1,55 @@
-# Comedi.ai
+# COMEDI.AI
 
-A modern e-commerce platform with a focus on user experience and social integration.
+A modern AI chat application that combines the power of Grok 3 with a playful roasting capability.
 
 ## Features
 
-- 🎨 Modern, clean UI design inspired by StockX
-- 🔐 User authentication system
-  - Email/password login
-  - Social login integration (Google, Apple, Facebook, X/Twitter)
-- 📱 Fully responsive design
-- 🎯 Landing page with key features and benefits
-- 🔄 Seamless navigation between signup and login
+- 💬 Regular chat mode with concise, direct responses
+- 🔥 Roast mode for witty, playful roasts
+- 🚀 Powered by Grok 3 via OpenRouter
+- ⚡ Fast, responsive interface
+- 🎨 Beautiful, modern UI
 
-## Tech Stack
-
-- HTML5
-- CSS3
-- JavaScript
-- Node.js (for development server)
-
-## Getting Started
+## Setup
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/comedi.ai.git
-cd comedi.ai
+git clone https://github.com/yourusername/COMEDI.AI.git
+cd COMEDI.AI
 ```
 
-2. Start the development server:
+2. Install dependencies:
 ```bash
-python3 -m http.server 8000
-# or
-node server.js
+npm install
 ```
 
-3. Open your browser and visit:
-- Landing page: http://localhost:8000
-- Sign up: http://localhost:8000/signup.html
-- Sign in: http://localhost:8000/signin.html
-
-## Project Structure
-
+3. Create a `.env` file in the root directory:
+```env
+OPENROUTER_API_KEY=your_api_key_here
 ```
-comedi.ai/
-├── index.html          # Landing page
-├── signup.html         # Sign up page
-├── signin.html         # Sign in page
-├── server.js           # Node.js server (optional)
-├── public/             # Public assets
-├── components/         # Reusable components
-├── lib/               # Helper functions
-└── README.md          # Project documentation
+
+4. Start the development servers:
+```bash
+# Start both frontend and backend with one command
+npm start
 ```
+
+5. Visit `http://localhost:3000` in your browser
+
+## API Endpoints
+
+### Regular Chat
+- **POST** `/api/grok/chat`
+- Body: `{ "message": "Your message here" }`
+
+### Roast Mode
+- **POST** `/api/roast`
+- Body: `{ "message": "What to roast" }`
+
+## Environment Variables
+
+- `PORT`: Server port (default: 4000)
+- `OPENROUTER_API_KEY`: Your OpenRouter API key
 
 ## Contributing
 
@@ -63,9 +61,9 @@ comedi.ai/
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Contact
 
 Your Name - [@yourusername](https://twitter.com/yourusername)
-Project Link: [https://github.com/yourusername/comedi.ai](https://github.com/yourusername/comedi.ai)
+Project Link: [https://github.com/yourusername/COMEDI.AI](https://github.com/yourusername/COMEDI.AI)

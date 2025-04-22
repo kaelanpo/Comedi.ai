@@ -1,0 +1,20 @@
+{
+  "ignore": [
+    "*.test.js",
+    "*.spec.js",
+    "node_modules/*",
+    ".git/*",
+    "*.log",
+    "*.md",
+    "*.env",
+    "*.json"
+  ],
+  "watch": [
+    "index.js",
+    "routes/*.js",
+    "middleware/*.js",
+    "models/*.js"
+  ],
+  "ext": "js",
+  "delay": "1000"
+} 

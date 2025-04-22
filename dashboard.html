@@ -77,15 +77,9 @@
     }
 
     @keyframes gradientFlow {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .close-sidebar {
@@ -274,6 +268,15 @@
       flex-direction: column;
       align-items: center;
       overflow: hidden;
+      background: linear-gradient(135deg, #1d1e4f 0%, #2b0f3c 50%, #1a1037 100%);
+      background-size: 200% 200%;
+      animation: gradientBG 15s ease infinite;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     /* Toggle button styles */
@@ -302,7 +305,7 @@
 
     .plan-status {
       position: fixed;
-      top: 60px;
+      top: 30px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
@@ -329,29 +332,17 @@
       position: relative;
       background: linear-gradient(
         90deg,
-        #00ffff,  /* Electric Blue */
-        #b19cd9,  /* Lavender */
-        #ff69b4,  /* Hot Pink */
-        #ffa07a,  /* Peachy Orange */
-        #40e0d0   /* Turquoise */
+        #00ffff,
+        #b19cd9,
+        #ff69b4,
+        #ffa07a,
+        #40e0d0
       );
       background-size: 300% 300%;
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: gradientFlow 3s ease infinite, glowPulse 2s ease-in-out infinite;
-    }
-
-    @keyframes gradientFlow {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
     }
 
     @keyframes glowPulse {
@@ -381,7 +372,10 @@
     }
 
     .greeting {
-      margin-top: 180px;
+      position: fixed;
+      top: 130px;
+      left: 50%;
+      transform: translateX(-50%);
       font-family: 'Raleway', sans-serif;
       font-size: 32px;
       font-weight: 700;
@@ -390,8 +384,10 @@
       gap: 12px;
       color: rgba(255, 255, 255, 0.9);
       text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-      transition: opacity 0.8s ease;
       opacity: 1;
+      transition: all 0.3s ease;
+      z-index: 10;
+      will-change: transform, opacity;
     }
 
     .greeting .icon {
@@ -408,204 +404,294 @@
       font-weight: 700;
     }
 
-    .chat-container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 20px;
-      max-width: 800px;
-      margin: 0 auto;
-      width: 100%;
-      box-sizing: border-box;
-      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-      transform: translateY(0);
-      position: absolute;
-      bottom: 35%;
-      padding-bottom: 120px;
-    }
-
-    .chat-container.typing {
-      justify-content: flex-end;
-      transform: translateY(20%);
-      bottom: 0;
-    }
-
+    /* Chat input bar styles */
     .input-container {
-      position: relative;
-      width: 100%;
-      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-      padding: 0;
-      opacity: 1;
-      margin-bottom: 80px;
-    }
-
-    .input-container::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 12px;
-      background: linear-gradient(
-        90deg,
-        #00ffff,  /* Electric Blue */
-        #b19cd9,  /* Lavender */
-        #ff69b4,  /* Hot Pink */
-        #ffa07a,  /* Peachy Orange */
-        #40e0d0   /* Turquoise */
-      );
-      background-size: 300% 300%;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-      z-index: 0;
-      filter: blur(4px);
-    }
-
-    .input-container.typing::before {
-      opacity: 0.5;
-      animation: gradientBorder 3s ease infinite;
-    }
-
-    @keyframes gradientBorder {
-      0% {
-        background-position: 0% 50%;
-        filter: blur(4px) brightness(1);
-      }
-      50% {
-        background-position: 100% 50%;
-        filter: blur(6px) brightness(1.1);
-      }
-      100% {
-        background-position: 0% 50%;
-        filter: blur(4px) brightness(1);
-      }
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 800px;
+      width: calc(100% - 60px);
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      background: rgba(45, 45, 45, 0.3);
+      border-radius: 30px;
+      padding: 16px 24px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     }
 
     .chat-input {
-      width: 100%;
-      padding: 16px;
-      background: linear-gradient(135deg, rgba(45, 16, 59, 0.95) 0%, rgba(11, 11, 33, 0.95) 100%);
+      flex: 1;
+      padding: 8px;
+      background: transparent;
       border: none;
-      border-radius: 12px;
-      color: #fff;
-      font-size: 16px;
-      outline: none;
-      box-sizing: border-box;
-      transition: all 0.3s ease;
-      padding-right: 140px;
-      backdrop-filter: blur(10px);
-      position: relative;
-      z-index: 1;
-      box-shadow: 0 0 10px rgba(0, 255, 255, 0.05);
+      color: rgba(255, 255, 255, 0.95);
+      font-size: 22px;
       font-family: 'Raleway', sans-serif;
+      resize: none;
+      height: 40px;
+      white-space: nowrap;
+      overflow-x: auto;
+      overflow-y: hidden;
+      line-height: 40px;
     }
 
-    .chat-input:focus {
-      border-color: transparent;
-      background: linear-gradient(135deg, rgba(45, 16, 59, 0.98) 0%, rgba(11, 11, 33, 0.98) 100%);
-      box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+    .chat-input::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .chat-input::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .chat-input::-webkit-scrollbar-thumb {
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
     }
 
     .chat-input::placeholder {
       color: rgba(255, 255, 255, 0.5);
+      font-size: 20px;
     }
 
-    .model-selector {
-      position: absolute;
-      right: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      padding: 6px 12px;
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+    .chat-input:focus {
+      outline: none;
+    }
+
+    .action-button {
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.7);
+      padding: 8px;
       cursor: pointer;
       transition: all 0.2s;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+    }
+
+    .action-button:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .action-button svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+
+    .input-actions {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    /* Chat bubble styles */
+    .chat-bubble {
+      position: relative;
+      border-radius: 1.5rem;
+      max-width: 85%;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
       backdrop-filter: blur(10px);
-      box-shadow: 0 0 15px var(--glow-pink);
-      font-family: 'Raleway', sans-serif;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 1rem 1.5rem;
+      margin-bottom: 0.5rem;
     }
-
-    .model-selector:hover {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(255, 255, 255, 0.2);
-      box-shadow: 0 0 20px var(--glow-purple);
+    
+    .chat-bubble-user {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.6) 0%, rgba(59, 130, 246, 0.6) 100%);
+      color: white;
+      margin-left: auto;
+      margin-right: 0;
+      font-size: 18px;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3), 0 0 20px rgba(99, 102, 241, 0.2);
+      border: 1px solid rgba(99, 102, 241, 0.4);
     }
-
-    .input-container.typing {
-      filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.05));
-      opacity: 1;
+    
+    .chat-bubble-ai {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(238, 242, 255, 0.6) 100%);
+      color: #1F2937;
+      margin-right: auto;
+      margin-left: 0;
+      font-size: 18px;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15), 0 0 20px rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
     }
-
-    .chat-container.typing + .greeting {
-      opacity: 0;
+    
+    #chat-messages-container {
+      position: fixed;
+      top: 200px;
+      bottom: 100px;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-y: auto;
+      padding: 1rem;
+      background: transparent;
+      backdrop-filter: none;
+    }
+    
+    #chat-messages-container > div {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    #chat-messages-container > div.justify-end {
+      align-items: flex-end;
+    }
+    
+    .chat-dots {
+      position: absolute;
+      top: 0.875rem;
+      right: 1rem;
+      display: flex;
+      gap: 3px;
+    }
+    
+    .chat-bubble-ai .chat-dots {
+      right: 1rem;
+      left: auto;
+    }
+    
+    .chat-bubble-user .chat-dots {
+      right: 1rem;
+      left: auto;
+    }
+    
+    .chat-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      opacity: 0.8;
+    }
+    
+    .user-dot {
+      background-color: rgba(255, 255, 255, 0.9);
+    }
+    
+    .ai-dot {
+      background-color: rgba(99, 102, 241, 0.9);
+    }
+    
+    /* Typing indicator animation */
+    .typing-dots {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    
+    .typing-dots .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: rgba(99, 102, 241, 0.6);
+      animation: typingAnimation 1.4s infinite ease-in-out;
+    }
+    
+    .typing-dots .dot:nth-child(1) {
+      animation-delay: 0s;
+    }
+    
+    .typing-dots .dot:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    
+    .typing-dots .dot:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+    
+    .typing-indicator {
+      display: flex;
+      justify-content: flex-start;
+      width: 100%;
+      max-width: 2xl;
+    }
+    
+    @keyframes typingAnimation {
+      0%, 60%, 100% {
+        transform: translateY(0);
+        opacity: 0.6;
+      }
+      30% {
+        transform: translateY(-4px);
+        opacity: 1;
+      }
     }
   </style>
 </head>
 <body>
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
-      <div class="sidebar-header">
-        <a href="/" class="logo">Comedi.ai</a>
+    <div class="sidebar-header">
+      <a href="/" class="logo">Comedi.ai</a>
       <button class="close-sidebar" id="close-sidebar">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="18" y1="6" x2="6" y2="18"></line>
           <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
+        </svg>
       </button>
-      </div>
+    </div>
 
     <button class="new-chat-btn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="12" y1="5" x2="12" y2="19"></line>
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-        </svg>
-        New chat
-      </button>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+      </svg>
+      New chat
+    </button>
       
     <div class="sidebar-section">
       <h3>Navigation</h3>
       <!-- Navigation items will be added here -->
-      </div>
+    </div>
       
-      <div class="user-section" id="user-section">
-        <div class="user-info">
-          <div class="user-avatar" id="user-avatar">KP</div>
-          <div class="user-details">
-            <div class="user-name" id="sidebar-user-name">Kaelan</div>
-            <div class="user-email" id="user-email">kaelanpo@yahoo.com</div>
-          </div>
+    <div class="user-section" id="user-section">
+      <div class="user-info">
+        <div class="user-avatar" id="user-avatar">KP</div>
+        <div class="user-details">
+          <div class="user-name" id="sidebar-user-name">Kaelan</div>
+          <div class="user-email" id="user-email">kaelanpo@yahoo.com</div>
         </div>
-        <div class="user-menu" id="user-menu">
-          <a href="account.html" class="menu-item">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-            Account Settings
-          </a>
-          <a href="#" class="menu-item">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-            </svg>
-            Privacy
-          </a>
-          <div class="menu-divider"></div>
-          <button class="menu-item sign-out-btn" id="sign-out-btn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-              <polyline points="16 17 21 12 16 7"></polyline>
-              <line x1="21" y1="12" x2="9" y2="12"></line>
-            </svg>
-            Sign out
-          </button>
-        </div>
+      </div>
+      <div class="user-menu" id="user-menu">
+        <a href="account.html" class="menu-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          Account Settings
+        </a>
+        <a href="#" class="menu-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          Privacy
+        </a>
+        <div class="menu-divider"></div>
+        <button class="menu-item sign-out-btn" id="sign-out-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          Sign out
+        </button>
       </div>
     </div>
+  </div>
     
   <!-- Main Content -->
   <div class="main-content" id="main-content">
@@ -614,34 +700,53 @@
         <line x1="3" y1="12" x2="21" y2="12"></line>
         <line x1="3" y1="6" x2="21" y2="6"></line>
         <line x1="3" y1="18" x2="21" y2="18"></line>
-          </svg>
-          </button>
+      </svg>
+    </button>
 
     <div class="plan-status">
       Free plan · <a href="payment.html" class="upgrade-link">Upgrade</a>
     </div>
       
+    <button id="api-test-btn" style="position: fixed; top: 30px; right: 30px; padding: 8px 16px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; color: white; font-size: 14px; cursor: pointer; font-family: 'Raleway', sans-serif;">
+      Test API
+    </button>
+    
+    <div id="connection-status" style="position: fixed; top: 30px; right: 140px; padding: 8px 16px; border-radius: 8px; font-size: 14px; font-family: 'Raleway', sans-serif; display: flex; align-items: center; gap: 8px;">
+      <span id="status-indicator" style="width: 10px; height: 10px; border-radius: 50%; background-color: #666; display: inline-block;"></span>
+      <span id="status-text">Checking...</span>
+    </div>
+      
     <div class="greeting">
       <span class="icon">✨</span>
       <span>Good evening, <span id="user-name">Kaelan</span></span>
-      </div>
-      
-    <div class="chat-container" id="chat-container">
-      <div class="input-container">
-        <input type="text" class="chat-input" placeholder="How can I help you today?" id="chat-input">
-        <div class="model-selector">
-          Claude 3.7 Sonnet
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-        </div>
+    </div>
+
+    <!-- Chat messages container -->
+    <div id="chat-messages-container" class="fixed top-[200px] bottom-[100px] left-0 right-0 flex flex-col items-center overflow-y-auto px-4 pt-4 pb-2">
+      <!-- Messages will be added here dynamically -->
+    </div>
+
+    <!-- Chat input bar -->
+    <div class="input-container">
+      <button class="action-button" id="new-chat-button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M12 5v14M5 12h14"/>
+        </svg>
+      </button>
+      <input class="chat-input" id="chat-input" placeholder="What's up?" type="text">
+      <div class="input-actions">
+        <button class="action-button" id="send-message-button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+          </svg>
+        </button>
       </div>
     </div>
   </div>
 
   <script>
     // Get user's first name from localStorage
-        const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
     if (user.firstName) {
       document.getElementById('user-name').textContent = user.firstName;
       document.getElementById('sidebar-user-name').textContent = user.firstName;
@@ -652,33 +757,12 @@
       }
     }
 
-    // Handle input focus and typing
-    const chatInput = document.getElementById('chat-input');
-    const chatContainer = document.getElementById('chat-container');
-    const inputContainer = document.querySelector('.input-container');
-
-    chatInput.addEventListener('input', function() {
-      if (this.value.length > 0) {
-        chatContainer.classList.add('typing');
-        inputContainer.classList.add('typing');
-              } else {
-        chatContainer.classList.remove('typing');
-        inputContainer.classList.remove('typing');
-      }
-    });
-
-    chatInput.addEventListener('blur', function() {
-      if (this.value.length === 0) {
-        chatContainer.classList.remove('typing');
-        inputContainer.classList.remove('typing');
-      }
-    });
-
     // Sidebar toggle functionality
     const toggleBtn = document.getElementById('toggle-sidebar');
     const closeBtn = document.getElementById('close-sidebar');
     const sidebar = document.getElementById('sidebar');
     const mainContent = document.getElementById('main-content');
+    const sidebarNewChatBtn = document.querySelector('.new-chat-btn');
 
     toggleBtn.addEventListener('click', function() {
       sidebar.classList.add('active');
@@ -688,18 +772,32 @@
       sidebar.classList.remove('active');
     });
 
+    // Connect sidebar new chat button to the same functionality
+    sidebarNewChatBtn.addEventListener('click', function() {
+      // Close the sidebar
+      sidebar.classList.remove('active');
+      
+      // Call the same function as the main new chat button
+      startNewChat();
+    });
+
     // Close sidebar when clicking outside
     mainContent.addEventListener('click', function(event) {
-      // Check if sidebar is active and click is not on the toggle button
       if (sidebar.classList.contains('active') && !toggleBtn.contains(event.target)) {
         sidebar.classList.remove('active');
       }
     });
 
+    // Sign out functionality
+    document.getElementById('sign-out-btn').addEventListener('click', function() {
+      localStorage.removeItem('user');
+      window.location.href = 'signin.html';
+    });
+
     // Get time of day for greeting
     function getRandomGreeting() {
       const greetings = [
-        { text: "Hey User, ready to drop some punchlines", icon: "🎤" },
+        { text: "Ready to drop some punchlines", icon: "🎤" },
         { text: "What's on your funny bone today", icon: "🦴" },
         { text: "Got a joke? Or should I go first", icon: "🤔" },
         { text: "Back again? Must be time to get funnier", icon: "⏳" },
@@ -739,11 +837,209 @@
       }
     });
 
-    // Sign out functionality
-    document.getElementById('sign-out-btn').addEventListener('click', function() {
-      localStorage.removeItem('user');
-      window.location.href = 'signin.html';
+    // Hide greeting when user starts typing
+    const chatInput = document.getElementById('chat-input');
+    const greetingElement = document.querySelector('.greeting');
+    
+    chatInput.addEventListener('input', function() {
+      if (this.value.trim() !== '') {
+        greetingElement.style.opacity = '0';
+        greetingElement.style.transform = 'translateX(-50%) translateY(-20px)';
+      } else {
+        greetingElement.style.opacity = '1';
+        greetingElement.style.transform = 'translateX(-50%)';
+      }
     });
+    
+    // Chat functionality
+    const sendButton = document.getElementById('send-message-button');
+    const messagesContainer = document.getElementById('chat-messages-container');
+    const newChatButton = document.getElementById('new-chat-button');
+    
+    // Store message history for API calls
+    let messageHistory = [];
+    
+    // Function to append messages to the container
+    function appendMessage(content, isUser) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `flex ${isUser ? 'justify-end' : 'justify-start'} mb-4 w-full max-w-2xl`;
+      
+      const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      
+      messageDiv.innerHTML = `
+        <div class="chat-bubble ${isUser ? 'chat-bubble-user' : 'chat-bubble-ai'}">
+          <div class="relative z-10" style="font-size: 18px; line-height: 1.6;">
+            ${content}
+          </div>
+          <div class="text-xs mt-1 opacity-80">
+            ${timestamp}
+          </div>
+          <div class="chat-dots">
+            <div class="chat-dot ${isUser ? 'user-dot' : 'ai-dot'}"></div>
+            <div class="chat-dot ${isUser ? 'user-dot' : 'ai-dot'}"></div>
+            <div class="chat-dot ${isUser ? 'user-dot' : 'ai-dot'}"></div>
+            <div class="chat-dot ${isUser ? 'user-dot' : 'ai-dot'}"></div>
+          </div>
+        </div>
+      `;
+      
+      messagesContainer.appendChild(messageDiv);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      
+      if (isUser) {
+        messageHistory.push({ role: "user", content: content });
+      } else {
+        messageHistory.push({ role: "assistant", content: content });
+      }
+    }
+    
+    // Function to call the Grok API
+    async function sendMessage(message) {
+      try {
+        sendButton.disabled = true;
+        chatInput.disabled = true;
+        
+        // Add typing indicator
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'flex justify-start mb-4 typing-indicator w-full max-w-2xl';
+        typingDiv.innerHTML = `
+          <div class="chat-bubble chat-bubble-ai flex items-center">
+            <div class="typing-dots">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+          </div>
+        `;
+        messagesContainer.appendChild(typingDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        
+        // Call API
+        const response = await fetch('/api/xai/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            message,
+            messageHistory
+          })
+        });
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        // Remove typing indicator
+        messagesContainer.removeChild(typingDiv);
+        
+        if (data.success && data.reply) {
+          appendMessage(data.reply, false);
+        } else {
+          throw new Error(data.error || 'Failed to get response');
+        }
+        
+      } catch (error) {
+        console.error('Error:', error);
+        // Remove typing indicator if it exists
+        const typingIndicator = document.querySelector('.typing-indicator');
+        if (typingIndicator) {
+          messagesContainer.removeChild(typingIndicator);
+        }
+        appendMessage('Sorry, I encountered an error. Please try again. 😅', false);
+      } finally {
+        sendButton.disabled = false;
+        chatInput.disabled = false;
+        chatInput.focus();
+      }
+    }
+    
+    // Handle send button click
+    sendButton.addEventListener('click', function() {
+      const message = chatInput.value.trim();
+      if (message) {
+        appendMessage(message, true);
+        chatInput.value = '';
+        sendMessage(message);
+      }
+    });
+    
+    // Handle enter key
+    chatInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendButton.click();
+      }
+    });
+    
+    // Handle new chat button
+    newChatButton.addEventListener('click', function() {
+      startNewChat();
+    });
+    
+    // Function to start new chat
+    function startNewChat() {
+      messageHistory = [];
+      messagesContainer.innerHTML = '';
+      chatInput.value = '';
+      chatInput.focus();
+    }
+
+    // Add event listener for API test button
+    document.getElementById('api-test-btn').addEventListener('click', async () => {
+      try {
+        const response = await fetch('/api/xai/chat-test');
+        const data = await response.json();
+        console.log('API Test Response:', data);
+        alert(JSON.stringify(data, null, 2));
+      } catch (error) {
+        console.error('API Test Error:', error);
+        alert('Error testing API: ' + error.message);
+      }
+    });
+    
+    // Connection status management
+    const statusIndicator = document.getElementById('status-indicator');
+    const statusText = document.getElementById('status-text');
+    
+    // Function to check API connection
+    async function checkApiConnection() {
+      try {
+        statusIndicator.style.backgroundColor = '#666'; // Gray while checking
+        statusText.textContent = 'Checking...';
+        
+        const response = await fetch('/api/xai/chat-test', {
+          // Set a shorter timeout for status checks
+          signal: AbortSignal.timeout(5000)
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          if (data.success && data.apiKeyConfigured && data.apiUrl) {
+            statusIndicator.style.backgroundColor = '#22c55e'; // Green for connected
+            statusText.textContent = 'Connected';
+          } else {
+            statusIndicator.style.backgroundColor = '#f59e0b'; // Amber for configured but issues
+            statusText.textContent = 'Partial';
+          }
+        } else {
+          statusIndicator.style.backgroundColor = '#ef4444'; // Red for failed
+          statusText.textContent = 'Disconnected';
+        }
+      } catch (error) {
+        console.error('Connection check failed:', error);
+        statusIndicator.style.backgroundColor = '#ef4444'; // Red for failed
+        statusText.textContent = 'Disconnected';
+      }
+    }
+    
+    // Initial connection check
+    checkApiConnection();
+    
+    // Check connection every 30 seconds
+    setInterval(checkApiConnection, 30000);
   </script>
 </body>
 </html> 

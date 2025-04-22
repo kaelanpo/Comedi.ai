@@ -14,14 +14,8 @@ export default defineConfig({
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   server: {
-    port: 3000,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:4000',
-        changeOrigin: true,
-        secure: false,
-      }
-    }
+    port: 3001,
+    strictPort: true
   },
   esbuild: {
     loader: 'jsx',

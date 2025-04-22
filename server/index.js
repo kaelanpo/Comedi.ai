@@ -12,7 +12,7 @@ const app = express();
 
 // 1. First, enable CORS
 app.use(cors({
-  origin: true,
+  origin: ['http://localhost:3000', 'http://localhost:3001'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
@@ -34,7 +34,7 @@ app.use((req, res, next) => {
 });
 
 // 3. Static file serving - BEFORE API routes
-const staticPath = path.resolve('/Users/macbook/COMEDI.AI');
+const staticPath = path.resolve(__dirname, '..');
 console.log('Serving static files from:', staticPath);
 
 app.use(express.static(staticPath, {
@@ -52,9 +52,10 @@ import roastRouter from './routes/roast.js';
 import openRouterRouter from './routes/openrouter.js';
 import xaiRouter from './routes/xai.js';
 
+// Register routes
 app.use('/api', grokRouter);
 app.use('/api', roastRouter);
-app.use('/api', openRouterRouter);
+app.use('/api', openRouterRouter); // This should handle all /api/openrouter/* routes
 app.use('/api', xaiRouter);
 
 // 5. Explicit route for dashboard.html
@@ -65,6 +66,19 @@ app.get(['/', '/dashboard'], (req, res, next) => {
   res.sendFile(dashboardPath, (err) => {
     if (err) {
       console.error('Error serving dashboard.html:', err);
+      next(err);
+    }
+  });
+});
+
+// 6. Route for chat.html
+app.get('/chat', (req, res, next) => {
+  const chatPath = path.join(staticPath, 'chat.html');
+  console.log('Attempting to serve chat from:', chatPath);
+  
+  res.sendFile(chatPath, (err) => {
+    if (err) {
+      console.error('Error serving chat.html:', err);
       next(err);
     }
   });
@@ -176,6 +190,23 @@ app.get('/api', (req, res) => {
   res.json({ message: 'API is working!' });
 });
 
+// Add direct test routes for troubleshooting
+app.get('/api/openrouter-test', (req, res) => {
+  res.json({
+    success: true,
+    message: 'Direct OpenRouter test endpoint working!',
+    timestamp: new Date().toISOString()
+  });
+});
+
+app.get('/api/test', (req, res) => {
+  res.json({ 
+    success: true, 
+    message: 'API test endpoint is working!',
+    timestamp: new Date().toISOString()
+  });
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error('Server error:', err);
@@ -186,8 +217,9 @@ app.use((err, req, res, next) => {
   });
 });
 
-const PORT = process.env.PORT || 5000;
+// Use environment variables for port configuration
+const PORT = process.env.PORT || 3001;
 const server = app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
-  console.log('API endpoints available through Vite proxy at http://localhost:3000/api');
+  console.log(`API endpoints available at http://localhost:${PORT}/api`);
 });
