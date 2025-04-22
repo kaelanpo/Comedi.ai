@@ -14,12 +14,7 @@ export default function Home() {
       <h1 className="text-4xl font-bold text-gray-900 mb-8">Welcome to Comedi.ai</h1>
       
       <div className="space-x-4">
-        <Link 
-          to="/dashboard" 
-          className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-        >
-          Go to Dashboard
-        </Link>
+        <Link to="/dashboard">Dashboard</Link>
         <Link 
           to="/chat" 
           className="inline-block px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
