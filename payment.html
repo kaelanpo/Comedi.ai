@@ -367,7 +367,7 @@
             Premium support
           </li>
         </ul>
-        <a href="/checkout.html?plan=premium" class="btn-silver">SELECT PLAN</a>
+        <a href="https://buy.stripe.com/3cs1463x6g2Hbok9AA" class="btn-silver">SELECT PLAN</a>
       </div>
 
       <!-- Annual Gold tier -->
@@ -421,21 +421,28 @@
             VIP customer support
           </li>
         </ul>
-        <a href="/checkout.html?plan=gold" class="btn-gold">SELECT PLAN</a>
+        <a href="https://buy.stripe.com/14k28a0kU3fV2ROfYZ" class="btn-gold">SELECT PLAN</a>
       </div>
     </div>
   </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      const planButtons = document.querySelectorAll('.pricing-btn');
+      const planButtons = document.querySelectorAll('.btn-silver, .btn-gold');
       
       planButtons.forEach(button => {
         button.addEventListener('click', function(e) {
+          e.preventDefault();
           const planType = this.closest('.pricing-card').classList.contains('gold') ? 'gold' : 'premium';
           const planPrice = this.closest('.pricing-card').querySelector('.price-value').textContent;
           localStorage.setItem('selectedPlan', planType);
           localStorage.setItem('planPrice', planPrice);
+          
+          // Redirect to appropriate Stripe payment link based on plan
+          const stripeUrl = planType === 'gold' 
+            ? 'https://buy.stripe.com/14k28a0kU3fV2ROfYZ'
+            : 'https://buy.stripe.com/3cs1463x6g2Hbok9AA';
+          window.location.href = stripeUrl;
         });
       });
     });
