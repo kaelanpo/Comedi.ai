@@ -11,7 +11,8 @@
     "start:prod": "vite preview",
     "vercel-test": "vercel --prod",
     "build:chat": "node js/build-chat.js",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "postinstall": "npm install @types/react-router-dom"
   },
   "dependencies": {
     "@mistralai/mistralai": "^1.5.2",
