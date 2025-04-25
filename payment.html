@@ -430,6 +430,13 @@
     document.addEventListener('DOMContentLoaded', function() {
       const planButtons = document.querySelectorAll('.btn-silver, .btn-gold');
       
+      // Check if we're returning from a successful payment
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('success') === 'true') {
+        window.location.href = 'thank-you.html';
+        return;
+      }
+      
       planButtons.forEach(button => {
         button.addEventListener('click', function(e) {
           e.preventDefault();

@@ -8,19 +8,14 @@
         "buildCommand": "npm run build",
         "outputDirectory": "dist"
       }
+    },
+    {
+      "src": "server/**/*.js",
+      "use": "@vercel/node"
     }
   ],
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/dashboard", "dest": "/dashboard.html" },
-    { "src": "/account", "dest": "/account.html" },
-    { "src": "/payment", "dest": "/payment.html" },
-    { "src": "/checkout", "dest": "/checkout.html" },
-    { "src": "/signin", "dest": "/signin.html" },
-    { "src": "/signup", "dest": "/signup.html" },
-    { "src": "/privacy", "dest": "/privacy.html" },
-    { "src": "/terms", "dest": "/terms.html" },
-    { "src": "/prompt-editor", "dest": "/prompt-editor.html" },
-    { "src": "/(.*)", "dest": "/index.html" }
+  "rewrites": [
+    { "source": "/api/:match*", "destination": "/server/index.js" },
+    { "source": "/:path((?!.*\\.).*)", "destination": "/index.html" }
   ]
 } 

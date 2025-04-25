@@ -7,6 +7,20 @@ module.exports = {
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
   ],
+  safelist: [
+    'from-primary',
+    'to-primary-light',
+    'text-primary',
+    'text-primary-dark',
+    'text-primary-light',
+    'bg-primary',
+    'bg-primary-light',
+    'bg-primary-dark',
+    'border-primary',
+    'hover:bg-primary',
+    'hover:text-primary',
+    'hover:border-primary',
+  ],
   theme: {
     container: {
       center: true,

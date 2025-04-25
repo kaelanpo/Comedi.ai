@@ -52,4 +52,7 @@ coverage/
 .cache/
 .eslintcache
 
-MISTRAL_API_KEY=your_actual_key_here 
+MISTRAL_API_KEY=your_actual_key_here
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+CLIENT_URL=http://localhost:3000 (or your production URL) 

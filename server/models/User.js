@@ -33,6 +33,21 @@ const userSchema = new mongoose.Schema({
     type: String,
     sparse: true
   },
+  subscription: {
+    status: {
+      type: String,
+      enum: ['none', 'active', 'cancelled', 'expired'],
+      default: 'none'
+    },
+    plan: {
+      type: String,
+      enum: ['free', 'premium', 'gold'],
+      default: 'free'
+    },
+    stripeCustomerId: String,
+    stripeSubscriptionId: String,
+    currentPeriodEnd: Date
+  },
   createdAt: {
     type: Date,
     default: Date.now
