@@ -7,12 +7,10 @@
     "dev": "vite",
     "server": "node server/index.js",
     "start": "concurrently \"npm run dev\" \"npm run server\"",
-    "build": "vite build && cp -r public dist/",
+    "build": "vite build",
     "start:prod": "vite preview",
-    "vercel-test": "vercel --prod",
-    "build:chat": "node js/build-chat.js",
-    "preview": "vite preview",
-    "postinstall": "npm install @types/react-router-dom"
+    "vercel-build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@mistralai/mistralai": "^1.5.2",
