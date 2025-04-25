@@ -12,7 +12,7 @@ const app = express();
 
 // 1. First, enable CORS
 app.use(cors({
-  origin: ['http://localhost:3001', 'https://comedi.ai', 'https://*.vercel.app'],
+  origin: 'http://localhost:3001',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true

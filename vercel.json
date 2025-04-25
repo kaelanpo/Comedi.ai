@@ -1,8 +1,26 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "buildCommand": "npm run build",
+        "outputDirectory": "dist"
+      }
+    }
+  ],
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/dashboard", "dest": "/dashboard.html" },
+    { "src": "/account", "dest": "/account.html" },
+    { "src": "/payment", "dest": "/payment.html" },
+    { "src": "/checkout", "dest": "/checkout.html" },
+    { "src": "/signin", "dest": "/signin.html" },
+    { "src": "/signup", "dest": "/signup.html" },
+    { "src": "/privacy", "dest": "/privacy.html" },
+    { "src": "/terms", "dest": "/terms.html" },
+    { "src": "/prompt-editor", "dest": "/prompt-editor.html" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 } 

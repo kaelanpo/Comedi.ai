@@ -1,15 +1,16 @@
 {
   "name": "comedi-ai",
-  "private": true,
   "version": "1.0.0",
-  "type": "module",
+  "description": "AI-powered comedy coach",
+  "main": "index.js",
   "scripts": {
     "dev": "vite",
     "server": "node server/index.js",
     "start": "concurrently \"npm run dev\" \"npm run server\"",
-    "build": "vite build",
-    "start:prod": "vite preview",
-    "vercel-build": "vite build",
+    "build": "tsc && vite build",
+    "start:prod": "vite preview --port 4000",
+    "vercel-test": "vercel --prod",
+    "build:chat": "node js/build-chat.js",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -17,26 +18,24 @@
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-slot": "^1.0.2",
     "@stripe/stripe-js": "^7.2.0",
-    "@types/react-router-dom": "^5.3.3",
     "clsx": "^2.1.0",
     "esbuild": "^0.25.2",
     "esbuild-node-externals": "^1.18.0",
     "lucide-react": "^0.344.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.30.0",
     "stripe": "^18.0.0",
-    "tailwind-merge": "^2.2.1",
-    "tailwindcss": "^3.4.1",
-    "autoprefixer": "^10.4.17",
-    "postcss": "^8.4.35"
+    "tailwind-merge": "^2.2.1"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
     "@types/react": "^18.3.20",
     "@types/react-dom": "^18.3.6",
     "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.17",
     "concurrently": "^8.2.2",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.8.3",
     "vite": "^5.1.4"
