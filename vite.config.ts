@@ -9,12 +9,13 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src'),
     },
   },
-  base: '/',
   build: {
     outDir: 'dist',
-    assetsDir: 'assets'
+    assetsDir: 'assets',
+    sourcemap: true
   },
   server: {
+    port: 3001,
     host: true,
     proxy: {
       '/api': {
