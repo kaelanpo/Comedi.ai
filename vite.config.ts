@@ -15,7 +15,6 @@ export default defineConfig({
     assetsDir: 'assets'
   },
   server: {
-    port: 3001,
     host: true,
     proxy: {
       '/api': {
