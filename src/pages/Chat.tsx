@@ -1,13 +1,15 @@
-import React from 'react';
+import { useState } from 'react';
 import ChatWindow from '@/components/ChatWindow';
 import ChatInput from '@/components/ChatInput';
 
+interface Message {
+  id: string;
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+}
+
 export default function Chat() {
-  const [messages, setMessages] = React.useState<Array<{
-    id: string;
-    role: 'user' | 'assistant' | 'system';
-    content: string;
-  }>>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
 
   const handleSendMessage = (content: string) => {
     const newMessage = {
