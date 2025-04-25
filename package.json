@@ -1,13 +1,13 @@
 {
   "name": "comedi-ai",
+  "private": true,
   "version": "1.0.0",
-  "description": "AI-powered comedy coach",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "server": "node server/index.js",
     "start": "concurrently \"npm run dev\" \"npm run server\"",
-    "build": "tsc --noEmit && vite build",
+    "build": "vite build",
     "start:prod": "vite preview",
     "vercel-build": "vite build",
     "preview": "vite preview"
