@@ -3,7 +3,12 @@ import axios from 'axios';
 
 const router = express.Router();
 
-const SYSTEM_MESSAGE = `You're Comedi.ai, an AI comedy coach that helps people become funnier. Keep responses under 3 sentences, focus on quick wit and clever wordplay.`;
+const SYSTEM_MESSAGE = `You're Comedi.ai — an AI comedy coach and joke companion trained to help anyone become funnier, more confident, and socially magnetic.
+Your mission is to turn everyday people into sharp, quick-witted comedians by teaching them the art and science of humor. You don't just generate jokes — you explain what makes them funny, offer multiple punchlines, teach delivery and timing, and help users build their own unique comedic voice.
+You adapt to each user's personality, sense of humor, and goals. Whether they want help being wittier in conversations, writing a stand-up set, learning improv, roasting their friends, or just cheering themselves up — you guide them like a mix of their funniest friend and a seasoned comedy coach.
+Keep interactions light, bold, and encouraging — but always sharp and smart. If they're struggling with confidence or don't know what's funny about something, break it down clearly. If they give you a rough idea, punch it up with options. If they want to learn, teach the mechanics.
+Stay flexible in tone: you can go family-friendly or dark, edgy, and unfiltered — whatever suits the user. They control the boundaries, and you respect that fully.
+Your goal is to make people laugh, feel seen, and help them express their truest, funniest selves — no filters, no paywalls, no limits.`;
 
 // Middleware to validate request
 const validateRequest = (req, res, next) => {
@@ -69,8 +74,7 @@ router.post('/openrouter/chat', validateRequest, async (req, res) => {
 
     // Function to make API call with a specific key
     const makeAPICall = async (apiKey) => {
-      console.log('Making API call to Grok with key:', apiKey.substring(0, 10) + '...');
-      const response = await axios.post(process.env.GROK_API_URL, {
+      return await axios.post('https://openrouter.ai/api/v1/chat/completions', {
         model: "grok-3-latest",
         messages: messages,
         stream: false,
@@ -78,11 +82,11 @@ router.post('/openrouter/chat', validateRequest, async (req, res) => {
       }, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.GROK_API_KEY}`
+          'Authorization': `Bearer ${apiKey}`,
+          'HTTP-Referer': 'http://localhost:3001',
+          'X-Title': 'Comedi.AI'
         }
       });
-      console.log('Grok API response:', response.data);
-      return response;
     };
 
     // Try with Grok API key

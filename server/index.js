@@ -12,10 +12,10 @@ const app = express();
 
 // 1. First, enable CORS
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3001'],
+  origin: true, // Allow all origins in development
+  credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 // 2. Body parser middleware MUST come before debug middleware
@@ -218,7 +218,11 @@ app.use((err, req, res, next) => {
 });
 
 // Use environment variables for port configuration
+<<<<<<< HEAD
 const PORT = process.env.SERVER_PORT || 3001;
+=======
+const PORT = process.env.SERVER_PORT || 8080;
+>>>>>>> 7e582ca (APRIL 30 WORKING SITE: Fixed server configuration and proxy settings. Removed Mistral integration. Updated API endpoints and CORS configuration for proper frontend-backend communication.)
 const server = app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
   console.log(`API endpoints available at http://localhost:${PORT}/api`);

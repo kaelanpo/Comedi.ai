@@ -3,7 +3,16 @@ import axios from 'axios';
 
 const router = express.Router();
 
+<<<<<<< HEAD
 const SYSTEM_MESSAGE = `You're Comedi.ai, an AI comedy coach that helps people become funnier. Keep responses under 3 sentences, focus on quick wit and clever wordplay.`;
+=======
+const SYSTEM_MESSAGE = `You're Comedi.ai — an AI comedy coach and joke companion trained to help anyone become funnier, more confident, and socially magnetic.
+Your mission is to turn everyday people into sharp, quick-witted comedians by teaching them the art and science of humor. You don't just generate jokes — you explain what makes them funny, offer multiple punchlines, teach delivery and timing, and help users build their own unique comedic voice.
+You adapt to each user's personality, sense of humor, and goals. Whether they want help being wittier in conversations, writing a stand-up set, learning improv, roasting their friends, or just cheering themselves up — you guide them like a mix of their funniest friend and a seasoned comedy coach.
+Keep interactions light, bold, and encouraging — but always sharp and smart. If they're struggling with confidence or don't know what's funny about something, break it down clearly. If they give you a rough idea, punch it up with options. If they want to learn, teach the mechanics.
+Stay flexible in tone: you can go family-friendly or dark, edgy, and unfiltered — whatever suits the user. They control the boundaries, and you respect that fully.
+Your goal is to make people laugh, feel seen, and help them express their truest, funniest selves — no filters, no paywalls, no limits.`;
+>>>>>>> 7e582ca (APRIL 30 WORKING SITE: Fixed server configuration and proxy settings. Removed Mistral integration. Updated API endpoints and CORS configuration for proper frontend-backend communication.)
 
 // Middleware to validate request for direct completions endpoint
 const validateRequest = (req, res, next) => {
@@ -92,8 +101,9 @@ router.post('/chat/completions', validateRequest, async (req, res) => {
 
 // Function to ensure response is max 3 sentences
 function limitToThreeSentences(text) {
-  const sentences = text.match(/[^.!?]+[.!?]+/g) || [];
-  return sentences.slice(0, 3).join(' ').trim();
+  // This function is no longer needed with the new prompt
+  // but we'll keep it in case it's needed later
+  return text;
 }
 
 // Chat endpoint for dashboard
@@ -126,31 +136,94 @@ router.post('/xai/chat', validateChatRequest, async (req, res) => {
     const maxRetries = 3;
     let lastError = null;
     let response = null;
+    let usingFallback = false;
 
     // Retry logic for API calls
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
       try {
-        console.log(`Attempt ${attempt}/${maxRetries} to call Grok API`);
+        console.log(`Attempt ${attempt}/${maxRetries} to call API`);
         
-        // Make request to Grok API with increased timeout
-        response = await axios.post('https://api.x.ai/v1/chat/completions', {
-          messages,
-          model: "grok-3-latest",
-          stream: false,
-          temperature: 1.0,
-          max_tokens: 100,
-          presence_penalty: 1.0,
-          frequency_penalty: 1.0
-        }, {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer xai-McC15k7Ofmnkunt15rJFg4quDTcxL9lylUary3fSLzo2ZZ10h90jTBmA5tu7et0HJQbjINH2cRUqpJSs`
-          },
-          timeout: 30000 // 30 second timeout
-        });
+        // Try with X.AI first
+        if (!usingFallback) {
+          try {
+            console.log('Trying X.AI endpoint');
+            // Make request to Grok API with increased timeout
+            response = await axios.post('https://api.x.ai/v1/chat/completions', {
+              messages,
+              model: "grok-3-latest",
+              stream: false,
+              temperature: 1.0,
+              max_tokens: 500,
+              presence_penalty: 1.0,
+              frequency_penalty: 1.0
+            }, {
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer xai-McC15k7Ofmnkunt15rJFg4quDTcxL9lylUary3fSLzo2ZZ10h90jTBmA5tu7et0HJQbjINH2cRUqpJSs`
+              },
+              timeout: 30000 // 30 second timeout
+            });
+            // If we got here, the request was successful
+            break;
+          } catch (xaiError) {
+            console.error('X.AI API failed, switching to OpenRouter:', xaiError.message);
+            usingFallback = true;
+            // Continue to OpenRouter fallback - don't increment attempt
+          }
+        }
         
-        // If we got here, the request was successful
-        break;
+        // OpenRouter fallback
+        if (usingFallback) {
+          console.log('Using OpenRouter fallback');
+          if (!process.env.OPENROUTER_API_KEY) {
+            console.error('OpenRouter API key not configured, trying hardcoded key');
+          }
+          
+          // Updated API key - safer to use an environment variable but providing a fallback
+          const openRouterKey = process.env.OPENROUTER_API_KEY || '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';
+          
+          try {
+            // Try OpenRouter first
+            response = await axios.post('https://openrouter.ai/api/v1/chat/completions', {
+              model: "openai/gpt-4-turbo",  // Changed to a more reliable model
+              messages: messages,
+              stream: false,
+              temperature: 0.7,
+              max_tokens: 800
+            }, {
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${openRouterKey}`,
+                'HTTP-Referer': 'http://localhost:3001',
+                'X-Title': 'Comedi.AI'
+              }
+            });
+          } catch (openRouterError) {
+            console.error('OpenRouter fallback failed, trying direct OpenAI API:', openRouterError.message);
+            
+            // If OpenRouter fails, try direct OpenAI API
+            if (process.env.OPENAI_API_KEY) {
+              console.log('Using direct OpenAI API as final fallback');
+              response = await axios.post('https://api.openai.com/v1/chat/completions', {
+                model: "gpt-4-turbo-preview",
+                messages: messages,
+                temperature: 0.7,
+                max_tokens: 800
+              }, {
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+                }
+              });
+            } else {
+              // If we don't have an OpenAI API key, re-throw the error
+              throw openRouterError;
+            }
+          }
+          
+          // If we got here, the request was successful
+          break;
+        }
       } catch (retryError) {
         lastError = retryError;
         console.error(`Attempt ${attempt} failed:`, retryError.message);
@@ -167,9 +240,8 @@ router.post('/xai/chat', validateChatRequest, async (req, res) => {
       throw lastError || new Error('All API call attempts failed');
     }
 
-    // Extract the response text and limit to 3 sentences
+    // Extract the response text
     let reply = response.data.choices[0].message.content;
-    reply = limitToThreeSentences(reply);
     console.log('API response:', reply);
 
     res.json({
