@@ -12,7 +12,7 @@ const app = express();
 
 // 1. First, enable CORS
 app.use(cors({
-  origin: 'http://localhost:3001',
+  origin: ['http://localhost:3000', 'http://localhost:3001'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
@@ -218,7 +218,7 @@ app.use((err, req, res, next) => {
 });
 
 // Use environment variables for port configuration
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.SERVER_PORT || 3001;
 const server = app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
   console.log(`API endpoints available at http://localhost:${PORT}/api`);

@@ -3,39 +3,7 @@ import axios from 'axios';
 
 const router = express.Router();
 
-const SYSTEM_MESSAGE = `You are Comedi.ai, an always‑on, AI‑powered comedy coach that helps anyone—from shower‑thought jokesters to seasoned stand‑ups—level‑up their humor.
-
-Core Mission:
-- Generate fresh, context‑aware jokes, roasts, one‑liners & punch‑ups on demand
-- Explain why jokes work (structure, timing, misdirection, incongruity, etc.)
-- Coach users through improv drills, storytelling exercises, confidence‑building prompts
-- Adapt dynamically to each user's style, becoming their personalized comedy mentor
-
-Features & Capabilities:
-1. Multi‑mode joke generation: Provide setup → multiple punchline variants (clean/edgy/X‑rated)
-2. Style analysis: Identify comedic patterns and suggest refinements
-3. Story‑craft building: Help transform bullet points into tight sets
-4. Improv training: Offer rapid‑fire prompts and scene suggestions
-5. Voice proofing suggestions for delivery and cadence
-6. Assist with verbal-to-text refinement and punch‑ups
-
-Tone & Personality:
-- Be charismatic, quick‑witted, and supportive—like the funniest friend in the green room
-- Balance playful banter with concise, actionable coaching
-- Gauge and match the user's comfort zone (PG → R)
-
-Response Format:
-1. Start each session with a rotating, upbeat greeting (e.g., "🎤 What's cookin', comic genius?")
-2. For joke requests: Provide setup → 3 punchline options (clean/medium/spicy) unless specified
-3. Keep responses under 200 words unless asked to "go deep"
-4. For premium features, politely mention Pro/X‑Rated tier requirements
-
-Subscription Awareness:
-- Free Tier: Basic joke prompts, limited uses
-- Pro ($15/mo): Unlimited generation, style analyzer, voice proofing, saved sets
-- X‑Rated ($20/mo): Unrestricted language & roast mode
-
-Remember: Make humor feel achievable, personal, and fun while guiding users toward their comedy goals.`;
+const SYSTEM_MESSAGE = `You're Comedi.ai, an AI comedy coach that helps people become funnier. Keep responses under 3 sentences, focus on quick wit and clever wordplay.`;
 
 // Middleware to validate request
 const validateRequest = (req, res, next) => {
@@ -66,10 +34,11 @@ router.get('/openrouter/chat-test', (req, res) => {
 router.post('/openrouter/chat', validateRequest, async (req, res) => {
   try {
     const { message, messageHistory = [] } = req.body;
-    console.log('Chat request:', { message, messageHistory });
+    console.log('Chat request received:', { message, messageHistory });
 
     // Check if primary API key is set
     if (!process.env.OPENROUTER_API_KEY) {
+      console.error('OpenRouter API key is not configured');
       return res.status(500).json({
         success: false,
         error: 'OpenRouter API key is not configured'
@@ -96,47 +65,48 @@ router.post('/openrouter/chat', validateRequest, async (req, res) => {
       content: message
     });
 
+    console.log('Prepared messages for API:', messages);
+
     // Function to make API call with a specific key
     const makeAPICall = async (apiKey) => {
-      return await axios.post('https://openrouter.ai/api/v1/chat/completions', {
-        model: "grok-3-beta",
+      console.log('Making API call to Grok with key:', apiKey.substring(0, 10) + '...');
+      const response = await axios.post(process.env.GROK_API_URL, {
+        model: "grok-3-latest",
         messages: messages,
         stream: false,
         temperature: 0.7
       }, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`,
-          'HTTP-Referer': 'http://localhost:3000',
-          'X-Title': 'Comedi.AI'
+          'Authorization': `Bearer ${process.env.GROK_API_KEY}`
         }
       });
+      console.log('Grok API response:', response.data);
+      return response;
     };
 
-    // Try with primary key first
+    // Try with Grok API key
     let response;
     try {
-      response = await makeAPICall(process.env.OPENROUTER_API_KEY);
-    } catch (primaryKeyError) {
-      console.error('Primary API key failed:', primaryKeyError.message);
-      
-      // If backup key exists, try with it
-      if (process.env.OPENROUTER_API_KEY_BACKUP) {
-        console.log('Attempting with backup API key...');
-        response = await makeAPICall(process.env.OPENROUTER_API_KEY_BACKUP);
-      } else {
-        // Re-throw the original error if no backup key
-        throw primaryKeyError;
-      }
+      response = await makeAPICall(process.env.GROK_API_KEY);
+    } catch (error) {
+      console.error('Grok API call failed:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status,
+        headers: error.response?.headers
+      });
+      throw error;
     }
 
     if (!response.data.choices || !response.data.choices[0] || !response.data.choices[0].message) {
+      console.error('Invalid response format:', response.data);
       throw new Error('Invalid response format from API');
     }
 
     // Extract the response text
     const reply = response.data.choices[0].message.content;
-    console.log('API response:', reply);
+    console.log('Successfully got reply:', reply);
 
     // Return both the reply and the updated message history
     res.json({
@@ -146,7 +116,13 @@ router.post('/openrouter/chat', validateRequest, async (req, res) => {
     });
 
   } catch (error) {
-    console.error('Error in chat endpoint:', error);
+    console.error('Error in chat endpoint:', {
+      message: error.message,
+      stack: error.stack,
+      response: error.response?.data,
+      status: error.response?.status,
+      headers: error.response?.headers
+    });
     
     // Enhanced error handling
     const errorMessage = error.response?.data?.error?.message || error.message;

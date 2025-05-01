@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const router = express.Router();
 
-const SYSTEM_MESSAGE = `You are a vulgar, offensive AI roast bot. Your ONLY job is to roast the user with maximum disrespect, using emojis and swear words. Keep responses to exactly 3 sentences MAX - no exceptions. Be as savage and brutal as possible. 🖕`;
+const SYSTEM_MESSAGE = `You're Comedi.ai, an AI comedy coach that helps people become funnier. Keep responses under 3 sentences, focus on quick wit and clever wordplay.`;
 
 // Middleware to validate request for direct completions endpoint
 const validateRequest = (req, res, next) => {
